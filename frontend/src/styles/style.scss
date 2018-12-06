@@ -28,12 +28,8 @@ h1, h2 {
   .navbar-brand {
     // text-transform: uppercase;
     font-size: 3.4rem;
-    color: $mm-brand;
     letter-spacing: -0.1rem;
     font-family: Raleway, sans-serif;
-    &:hover {
-      color: $mm-brand;
-    }
   }
   .navbar-nav {
     position: relative;
