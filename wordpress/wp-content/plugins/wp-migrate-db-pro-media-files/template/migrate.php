@@ -24,14 +24,14 @@
 						<?php _e( 'Compare then upload', 'wp-migrate-db-pro-media-files' ); ?>
 						<a href="#" class="general-helper replace-guid-helper js-action-link"></a>
 						<div class="mf-compare-message helper-message">
-							<?php _e( 'Compare remote and local media files determining what files are missing or have been updated and need to be uploaded. Great for syncing two Media Libraries that only differ a little. For more details, see the <a href="https://deliciousbrains.com/wp-migrate-db-pro/doc/media-files-addon" target="_blank">Media Files doc</a>.', 'wp-migrate-db' ); ?>
+							<?php _e( 'Compare remote and local media files determining what files are missing or have been updated and need to be uploaded. Great for syncing two Media Libraries that only differ a little. For more details, see the <a href="https://deliciousbrains.com/wp-migrate-db-pro/doc/media-files-addon?utm_campaign=addons%2Binstall&utm_source=MDB%2BPaid&utm_medium=insideplugin" target="_blank">Media Files doc</a>.', 'wp-migrate-db' ); ?>
 						</div>
 					</span>
 					<span class="action-text pull">
 						<?php _e( 'Compare then download', 'wp-migrate-db-pro-media-files' ); ?>
 						<a href="#" class="general-helper replace-guid-helper js-action-link"></a>
 						<div class="mf-compare-message helper-message">
-							<?php _e( 'Compare remote and local media files determining what files are missing or have been updated and need to be downloaded. Great for syncing two Media Libraries that only differ a little. For more details, see the <a href="https://deliciousbrains.com/wp-migrate-db-pro/doc/media-files-addon" target="_blank">Media Files doc</a>.', 'wp-migrate-db' ); ?>
+							<?php _e( 'Compare remote and local media files determining what files are missing or have been updated and need to be downloaded. Great for syncing two Media Libraries that only differ a little. For more details, see the <a href="https://deliciousbrains.com/wp-migrate-db-pro/doc/media-files-addon?utm_campaign=addons%2Binstall&utm_source=MDB%2BPaid&utm_medium=insideplugin" target="_blank">Media Files doc</a>.', 'wp-migrate-db' ); ?>
 						</div>
 					</span>
 				</label>
@@ -90,7 +90,7 @@
 	</p>
 
 	<p class="media-files-different-plugin-version-notice inline-message warning" style="display: none; margin: 10px 0 0 0;">
-		<strong><?php _e( 'Version Mismatch', 'wp-migrate-db-pro-media-files' ); ?></strong> &mdash; <?php printf( __( 'We have detected you have version <span class="media-file-remote-version"></span> of WP Migrate DB Pro Media Files at <span class="media-files-remote-location"></span> but are using %1$s here. Please go to the <a href="%2$s">Plugins page</a> on both installs and check for updates.', 'wp-migrate-db-pro-media-files' ), $GLOBALS['wpmdb_meta'][$this->plugin_slug]['version'], network_admin_url( 'plugins.php' ) ); ?>
+		<strong><?php _e( 'Version Mismatch', 'wp-migrate-db-pro-media-files' ); ?></strong> &mdash; <?php printf( __( 'We have detected you have version <span class="media-file-remote-version"></span> of WP Migrate DB Pro Media Files at <span class="media-files-remote-location"></span> but are using %1$s here. Please go to the <a href="%2$s">Plugins page</a> on both installs and check for updates.', 'wp-migrate-db-pro-media-files' ), $GLOBALS['wpmdb_meta']['wp-migrate-db-pro-media-files']['version'], network_admin_url( 'plugins.php' ) ); ?>
 	</p>
 
 </div>
