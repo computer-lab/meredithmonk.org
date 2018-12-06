@@ -2,7 +2,6 @@ import Layout from "../components/Layout.js";
 import React, { Component } from "react";
 import fetch from "isomorphic-unfetch";
 import Error from "next/error";
-import PageWrapper from "../components/PageWrapper.js";
 import Menu from "../components/Menu.js";
 import { Config } from "../config.js";
 
@@ -54,4 +53,4 @@ class Preview extends Component {
     }
 }
 
-export default PageWrapper(Preview);
+export default Preview;
