@@ -13,6 +13,15 @@ h1, h2 {
   color: $themeColor-Dark
 }
 
+.wp-block-table {
+  width: 100%;
+  td {
+    border: 1px solid $gray-800;
+    padding: 1rem 0.5rem;
+    text-align: center;
+  }
+}
+
 /* wrapper -- page content never gets wider than this */
 #wrapper {
   padding: 20px 20px 0 20px;
@@ -153,6 +162,7 @@ h1, h2 {
   h2 {
     font-size: 2rem;
     margin-top: 2rem;
+    margin-bottom: 1.2rem;
     text-transform: uppercase;
     color: $mm-purple;
   }
