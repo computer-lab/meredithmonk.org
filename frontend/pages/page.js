@@ -4,7 +4,6 @@ import fetch from "isomorphic-unfetch";
 import Error from "next/error";
 import { withRouter } from 'next/router'
 import classNames from "classnames";
-import PageWrapper from "../components/PageWrapper.js";
 import Menu from "../components/Menu.js";
 import { Config } from "../config.js";
 import { createLink } from "../src/util.js";
@@ -61,11 +60,13 @@ class Page extends Component {
 
   render() {
     const {
-      page,
-      page: { acf },
-      menuItems,
       headerMenu,
-      repertoryWorks
+      repertoryWorks,
+      pageProps: {
+        page,
+        page: { acf },
+        menuItems,
+      }
     } = this.props
 
     if (!page.title) return <Error statusCode={404} />;
@@ -126,4 +127,4 @@ class Page extends Component {
   }
 }
 
-export default withRouter(PageWrapper(Page));
+export default withRouter(Page);

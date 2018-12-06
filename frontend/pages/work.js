@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PageWrapper from "../components/PageWrapper.js";
 import Layout from "../components/Layout.js";
 import Menu from "../components/Menu.js";
 import Link from "next/link";
@@ -18,10 +17,14 @@ class Work extends Component {
   }
 
   render() {
-    const { post } = this.props
+    const {
+      headerMenu,
+      pageProps: { post }
+    } = this.props
+
     return (
       <Layout>
-        <Menu menu={this.props.headerMenu} />
+        <Menu menu={headerMenu} />
         <div className="container-fluid" id="main">
           <div className="row">
             <div className="col">
@@ -50,4 +53,4 @@ class Work extends Component {
   }
 }
 
-export default PageWrapper(Work);
+export default Work;
