@@ -7,6 +7,7 @@ import PageWrapper from "../components/PageWrapper.js";
 import Menu from "../components/Menu.js";
 import { Config } from "../config.js";
 import { createLink } from "../src/util.js";
+//import bgMp4 from '../static/background.mp4';
 
 class Index extends Component {
   static async getInitialProps(context) {
@@ -30,7 +31,10 @@ class Index extends Component {
       <Layout>
         <Menu menu={this.props.headerMenu} />
         <div className="container" id="main">
-          <div>(note, this template is pages/index.js, all the other pages are pages/page.js)</div>
+          <div>(hello, this template is pages/index.js, all the other pages are pages/page.js)</div>
+          <video className="video" autoPlay loop>
+            <source src="/static/background.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+          </video>
           <div
             dangerouslySetInnerHTML={{
               __html: this.props.post.content.rendered
