@@ -26,7 +26,7 @@ export const createLink = (item, index) => {
     slug = "workshops"
   } else if (slug === "support") {
     asSlug = "support/give"
-    slug = "workshops"
+    slug = "give"
   } else {
     asSlug = slug
   }
