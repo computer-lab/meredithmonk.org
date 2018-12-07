@@ -28,7 +28,7 @@ class Index extends Component {
     if (!post.title) return <Error statusCode={404} />
 
     return (
-      <Layout headerMenu={headerMenu}>
+      <Layout headerMenu={headerMenu} isDark>
         <video className="video" autoPlay loop>
           <source src="/static/background.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
         </video>

@@ -3,14 +3,14 @@ import Header from './Header'
 import Footer from './Footer'
 import Menu from './Menu'
 
-const Layout = ({ headerMenu, children }) => (
+const Layout = ({ headerMenu, children, isDark }) => (
   <React.Fragment>
     <Header />
-    <Menu menu={headerMenu} />
+    <Menu menu={headerMenu} isDark={isDark} />
     <div className="container-fluid" id="main">
       {children}
     </div>
-    <Footer />
+    <Footer isDark={isDark} />
   </React.Fragment>
 )
 

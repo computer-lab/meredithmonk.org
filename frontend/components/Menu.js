@@ -13,10 +13,10 @@ class Menu extends Component {
   }
 
   render() {
-    const { menu } = this.props
+    const { menu, isDark } = this.props
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-light light container-fluid">
+      <nav className={`navbar navbar-expand-lg navbar-${isDark ? 'dark' : 'light'} container-fluid`}>
         <Link href="/welcome/?slug=welcome&apiRoute=welcome" as="/">
           <a className="navbar-brand">Meredith Monk</a>
         </Link>
