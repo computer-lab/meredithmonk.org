@@ -1,6 +1,22 @@
-import React from 'react';
-import Link from "next/link";
-import urlParse from 'url-parse';
+import React from 'react'
+import Link from 'next/link'
+import urlParse from 'url-parse'
+
+function clickMenuItem() {
+  window.setTimeout(() => {
+    if ($('.navbar-collapse.show').length) $('.navbar-toggler').trigger('click')
+  }, 50)
+}
+
+export const getLocation = (href) => {
+  const url = urlParse(href)
+  return url.pathname
+}
+
+export const getSlug = (url) => {
+  const parts = url.split('/')
+  return parts.length > 2 ? parts[parts.length - 2] : ''
+}
 
 export const createLink = (item, index) => {
   if (item.link) {
@@ -11,22 +27,22 @@ export const createLink = (item, index) => {
         href={`/page?slug=${item.slug}&apiRoute=page`}
         key={item.id}
       >
-        <a>{item.title.rendered}</a>
+        {item.title.rendered}
       </Link>
     )
   }
 
-  let slug = getSlug(item.url);
+  let slug = getSlug(item.url)
   let asSlug
-  if (slug === "about") {
-    asSlug = "about/biography"
-    slug = "biography"
-  } else if (slug === "education") {
-    asSlug = "education/workshops"
-    slug = "workshops"
-  } else if (slug === "support") {
-    asSlug = "support/give"
-    slug = "give"
+  if (slug === 'about') {
+    asSlug = 'about/biography'
+    slug = 'biography'
+  } else if (slug === 'education') {
+    asSlug = 'education/workshops'
+    slug = 'workshops'
+  } else if (slug === 'support') {
+    asSlug = 'support/give'
+    slug = 'give'
   } else {
     asSlug = slug
   }
@@ -40,21 +56,5 @@ export const createLink = (item, index) => {
     >
       <a className="nav-link" onClick={clickMenuItem}>{item.title}</a>
     </Link>
-  );
-}
-
-function clickMenuItem() {
-  window.setTimeout(() => {
-    $('.navbar-collapse.show').length && $('.navbar-toggler').trigger('click');
-  }, 50);
-}
-
-function getLocation(href) {
-  const url = urlParse(href);
-  return url.pathname;
-};
-
-function getSlug(url) {
-  const parts = url.split("/");
-  return parts.length > 2 ? parts[parts.length - 2] : "";
+  )
 }

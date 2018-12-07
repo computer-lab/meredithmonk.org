@@ -1,37 +1,31 @@
-import Layout from "../components/Layout.js";
-import React, { Component } from "react";
-import Link from "next/link";
-import fetch from "isomorphic-unfetch";
-import Error from "next/error";
-import Menu from "../components/Menu.js";
-import { Config } from "../config.js";
-import { createLink } from "../src/util.js";
-//import bgMp4 from '../static/background.mp4';
+import React, { Component } from 'react'
+import fetch from 'isomorphic-unfetch'
+import Error from 'next/error'
+import Layout from '../components/Layout'
+import { Config } from '../config'
 
 class Index extends Component {
-  static async getInitialProps(context) {
-    const { slug, apiRoute } = context.query;
+  static async getInitialProps() {
     const res = await fetch(
-      `${Config.apiUrl}/wp-json/postlight/v1/page?slug=welcome`
-    );
-    const post = await res.json();
+      `${Config.apiUrl}/wp-json/postlight/v1/page?slug=welcome`,
+    )
+    const post = await res.json()
     const childrenRes = await fetch(
-      `${Config.apiUrl}/wp-json/wp/v2/pages?parent=${post.id}`
-    );
-    const children = await childrenRes.json();
-    return { post, children };
+      `${Config.apiUrl}/wp-json/wp/v2/pages?parent=${post.id}`,
+    )
+    const children = await childrenRes.json()
+    return { post, children }
   }
 
   render() {
-    let {
+    const {
       headerMenu,
       pageProps: {
         post,
-        children
-      }
+      },
     } = this.props
 
-    if (!post.title) return <Error statusCode={404} />;
+    if (!post.title) return <Error statusCode={404} />
 
     return (
       <Layout headerMenu={headerMenu}>
@@ -40,12 +34,12 @@ class Index extends Component {
         </video>
         <div
           dangerouslySetInnerHTML={{
-            __html: post.content.rendered
+            __html: post.content.rendered,
           }}
         />
       </Layout>
-    );
+    )
   }
 }
 
-export default Index;
+export default Index

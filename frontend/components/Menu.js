@@ -1,39 +1,35 @@
-import React, { Component } from "react";
-import classNames from "classnames";
+import React, { Component } from 'react'
+import classNames from 'classnames'
 import { withRouter } from 'next/router'
-import Link from "next/link";
-import { Config } from "../config.js";
-import { createLink } from "../src/util.js";
+import Link from 'next/link'
+import { createLink } from '../src/util'
 
 class Menu extends Component {
-  constructor() {
-    super();
-  }
-
   isActive(link) {
-    const currentPath = this.props.router.asPath
-    const linkBase = '/' + link.props.as.split('/')[1]
+    const { router } = this.props
+    const currentPath = router.asPath
+    const linkBase = `/${link.props.as.split('/')[1]}`
     return currentPath.indexOf(linkBase) === 0
   }
 
   render() {
-    const menuItems = this.props.menu.items
+    const { menu } = this.props
 
-    return ( 
+    return (
       <nav className="navbar navbar-expand-lg navbar-light light container-fluid">
         <Link href="/welcome/?slug=welcome&apiRoute=welcome" as="/">
           <a className="navbar-brand">Meredith Monk</a>
         </Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarToggler">
           <ul className="navbar-nav ml-auto">
-            { menuItems.map(createLink).map((link, i) =>
-              <li className={classNames("nav-item", {['active']: this.isActive(link)})} key={i}>
+            { menu.items.map(createLink).map(link => (
+              <li className={classNames('nav-item', { active: this.isActive(link) })} key={link}>
                 { link }
               </li>
-            )}
+            ))}
           </ul>
         </div>
       </nav>
@@ -41,4 +37,4 @@ class Menu extends Component {
   }
 }
 
-export default withRouter(Menu);
+export default withRouter(Menu)

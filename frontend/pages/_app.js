@@ -1,6 +1,6 @@
 import React from 'react'
 import App, { Container } from 'next/app'
-import { Config } from "../config.js"
+import { Config } from '../config'
 
 export default class MyApp extends App {
   constructor(props) {
@@ -18,35 +18,40 @@ export default class MyApp extends App {
     }
 
     // get data that only needs to be gotten once (during SSR)
-    if (!!ctx.req) {
+    if (ctx.req) {
       const headerMenuRes = await fetch(
-        `${Config.apiUrl}/wp-json/menus/v1/menus/header-menu`
-      );
+        `${Config.apiUrl}/wp-json/menus/v1/menus/header-menu`,
+      )
       const repertoryWorksRes = await fetch(
-        `${Config.apiUrl}/wp-json/wp/v2/work?_embed`
-      );
-      const headerMenu = await headerMenuRes.json();
-      const repertoryWorks = await repertoryWorksRes.json();
+        `${Config.apiUrl}/wp-json/wp/v2/work?_embed`,
+      )
+      const headerMenu = await headerMenuRes.json()
+      const repertoryWorks = await repertoryWorksRes.json()
 
       return {
         headerMenu,
         repertoryWorks,
-        pageProps
-      };
+        pageProps,
+      }
     }
-    
+
     return {
-      pageProps
+      pageProps,
     }
   }
 
-  render () {
-    const { Component, pageProps, headerMenu, repertoryWorks } = this.props
+  render() {
+    const {
+      Component, pageProps, headerMenu, repertoryWorks,
+    } = this.props
 
     return (
       <Container>
         <div id="wrapper">
-          <Component {...{pageProps, headerMenu, repertoryWorks, ...this.state}} />
+          <Component {...{
+            pageProps, headerMenu, repertoryWorks, ...this.state,
+          }}
+          />
         </div>
       </Container>
     )

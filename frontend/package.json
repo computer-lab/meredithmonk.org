@@ -13,7 +13,8 @@
         "docker:start": "docker start frontend && yarn run docker:logs",
         "docker:logs": "docker logs -f frontend",
         "deploy": "yarn run docker:build && yarn run docker:clean && yarn run docker:run",
-        "gcp-build": "NODE_ENV=production npm run build"
+        "gcp-build": "NODE_ENV=production npm run build",
+        "lint-watch": "esw -w --fix --clear --ext .js --ext .jsx components src pages"
     },
     "keywords": [],
     "author": "",
@@ -32,8 +33,15 @@
     },
     "devDependencies": {
         "autoprefixer": "7.1.5",
+        "babel-eslint": "^10.0.1",
         "babel-plugin-module-resolver": "^2.7.1",
         "babel-plugin-wrap-in-js": "^1.1.0",
+        "eslint": "^5.9.0",
+        "eslint-config-airbnb": "^17.1.0",
+        "eslint-plugin-import": "^2.14.0",
+        "eslint-plugin-jsx-a11y": "^6.1.2",
+        "eslint-plugin-react": "^7.11.1",
+        "eslint-watch": "^4.0.2",
         "glob": "^7.1.2",
         "node-sass": "^4.4.0",
         "normalize.css": "^7.0.0",

@@ -1,37 +1,9 @@
 import React from 'react'
 import urlParse from 'url-parse'
-import safeGet from "lodash/get";
-
-const Shop = ({categories}) => {
-  return (
-    <div id="shop">
-      {categories.map((category, i) =>
-        <div className="category" key={i}>
-          <h1 className="category-name">{category.name}</h1>
-          <div className="products">
-            {category.products.map((product, j) =>
-              <div className="product card" key={j}>
-                <img className="card-img-top" src={safeGet(product, 'image.sizes.thumbnail')} alt={product.name} />
-                <div className="card-body">
-                  <div className="product-name card-text">{product.name}</div>
-                  <div className="product-subtitle card-text">{product.subtitle}</div>
-                  <ul className="product-purchase-links">
-                    {product.purchase_links.map((link, k) => 
-                      <li key={k}>{prettyLink(link.link)}</li>
-                    )}
-                  </ul>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
+import safeGet from 'lodash/get'
 
 function prettyLink(link) {
-  const hostname = urlParse(link).hostname
+  const { hostname } = urlParse(link)
   let linkText = `Purchase at ${hostname}`
 
   if (hostname.match(/amazon/)) {
@@ -47,8 +19,36 @@ function prettyLink(link) {
   }
 
   return (
-    <a href={link} target="_blank">{linkText}</a>
+    <a href={link} rel="noopener noreferrer" target="_blank">{linkText}</a>
   )
 }
 
-export default Shop;
+const Shop = ({ categories }) => (
+  <div id="shop">
+    {categories.map(category => (
+      <div className="category" key={category.name}>
+        <h1 className="category-name">{category.name}</h1>
+        <div className="products">
+          {category.products.map(product => (
+            <div className="product card" key={product.name}>
+              <img className="card-img-top" src={safeGet(product, 'image.sizes.thumbnail')} alt={product.name} />
+              <div className="card-body">
+                <div className="product-name card-text">{product.name}</div>
+                <div className="product-subtitle card-text">{product.subtitle}</div>
+                <ul className="product-purchase-links">
+                  {
+                    product.purchase_links
+                      .map(link => <li key={link}>{prettyLink(link.link)}</li>)
+                  }
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+)
+
+
+export default Shop

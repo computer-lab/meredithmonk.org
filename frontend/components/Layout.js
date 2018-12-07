@@ -1,17 +1,17 @@
-import Header from "./Header";
-import Footer from "./Footer";
-import Menu from './Menu';
-import React from 'react';
+import React from 'react'
+import Header from './Header'
+import Footer from './Footer'
+import Menu from './Menu'
 
-const Layout = props => (
+const Layout = ({ headerMenu, children }) => (
   <React.Fragment>
     <Header />
-    <Menu menu={props.headerMenu} />
+    <Menu menu={headerMenu} />
     <div className="container-fluid" id="main">
-      {props.children}
+      {children}
     </div>
     <Footer />
   </React.Fragment>
-);
+)
 
-export default Layout;
+export default Layout
