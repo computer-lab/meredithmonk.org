@@ -26,7 +26,7 @@ class Menu extends Component {
         <div className="collapse navbar-collapse" id="navbarToggler">
           <ul className="navbar-nav ml-auto">
             { menu.items.map(createLink).map(link => (
-              <li className={classNames('nav-item', { active: this.isActive(link) })} key={link}>
+              <li className={classNames('nav-item', { active: this.isActive(link) })} key={link.props.as}>
                 { link }
               </li>
             ))}
