@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Footer = () => (
+const Footer = ({ isDark }) => (
   <React.Fragment>
-    <div id="footer">
+    <div id="footer" className={`${isDark ? 'dark' : ''}`}>
       <img alt="monk logo" src="/static/images/MM-Gold-transparent.png" />
       <address>
         <p>Meredith Monk/The House Foundation for the Arts</p>
