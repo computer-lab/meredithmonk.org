@@ -403,3 +403,9 @@ $grid_gutter_size: 0.75rem;
     margin-bottom: 0;
   }
 }
+
+#footer.dark {
+  a, p {
+    color: $white;
+  }
+}
