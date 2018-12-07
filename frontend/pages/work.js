@@ -23,31 +23,28 @@ class Work extends Component {
     } = this.props
 
     return (
-      <Layout>
-        <Menu menu={headerMenu} />
-        <div className="container-fluid" id="main">
-          <div className="row">
-            <div className="col">
-              <img className="work-featured-image" src={safeGet(post, "['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['full']['source_url']")} alt={post.title.rendered} />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col" id="content" className="work-description">
-              <div dangerouslySetInnerHTML={{
-                  __html: post.content.rendered
-                }}>
-              </div>
-              <div className="see-more">
-                <span className="arrow">←</span>
-                <Link
-                  as="/current-repertory"
-                  href="/page?slug=current-repertory&apiRoute=page">
-                    <a>See more work</a>
-                </Link>
-              </div>
-            </div>
+      <Layout headerMenu={headerMenu}>
+        <div className="row">
+          <div className="col">
+            <img className="work-featured-image" src={safeGet(post, "['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['full']['source_url']")} alt={post.title.rendered} />
           </div>
         </div>
+        <div className="row">
+          <div className="col" id="content" className="work-description">
+            <div dangerouslySetInnerHTML={{
+              __html: post.content.rendered
+            }}>
+          </div>
+          <div className="see-more">
+            <span className="arrow">←</span>
+            <Link
+              as="/current-repertory"
+              href="/page?slug=current-repertory&apiRoute=page">
+              <a>See more work</a>
+            </Link>
+          </div>
+        </div>
+      </div>
       </Layout>
     )
   }

@@ -34,19 +34,15 @@ class Index extends Component {
     if (!post.title) return <Error statusCode={404} />;
 
     return (
-      <Layout>
-        <Menu menu={headerMenu} />
-        <div className="container" id="main">
-          <div>(hello, this template is pages/index.js, all the other pages are pages/page.js)</div>
-          <video className="video" autoPlay loop>
-            <source src="/static/background.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
-          </video>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: post.content.rendered
-            }}
-          />
-        </div>
+      <Layout headerMenu={headerMenu}>
+        <video className="video" autoPlay loop>
+          <source src="/static/background.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+        </video>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: post.content.rendered
+          }}
+        />
       </Layout>
     );
   }

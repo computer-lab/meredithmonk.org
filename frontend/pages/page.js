@@ -72,57 +72,54 @@ class Page extends Component {
     if (!page.title) return <Error statusCode={404} />;
 
     return (
-      <Layout>
-        <Menu menu={headerMenu} />
-        <div className="container-fluid" id="main">
-          <div className="row">
-            <div className={classNames('col', {['solo']: !menuItems.length})} id="content">
-              {/* <h1>{page.title.rendered}</h1> */}
-              <div dangerouslySetInnerHTML={{
-                  __html: page.content.rendered
-                }}>
-              </div>
+      <Layout headerMenu={headerMenu}>
+        <div className="row">
+          <div className={classNames('col', {['solo']: !menuItems.length})} id="content">
+            {/* <h1>{page.title.rendered}</h1> */}
+            <div dangerouslySetInnerHTML={{
+              __html: page.content.rendered
+            }}>
+          </div>
 
-              {/* calendar events */}
-              { acf && acf.events && <CalendarEvents events={acf.events} /> }
+          {/* calendar events */}
+          { acf && acf.events && <CalendarEvents events={acf.events} /> }
 
-              {/* shop */}
-              {acf && 
-                <div>
-                  {acf.featured_product_image &&
+          {/* shop */}
+          {acf &&
+              <div>
+                {acf.featured_product_image &&
                     <div class="featured-product">
                       <img src={safeGet(acf, 'featured_product_image.sizes.thumbnail')} />
                       <div dangerouslySetInnerHTML={{
-                          __html: acf.featured_product_description
-                        }}>
-                      </div>
+                        __html: acf.featured_product_description
+                      }}>
                     </div>
-                  }
-                  {acf.product_categories &&
+                  </div>
+                }
+                {acf.product_categories &&
                     <Shop categories={acf.product_categories} />
-                  }
-                </div>
-              }
+                }
+              </div>
+          }
 
-              {/* repertory works */}
-              { this.isSectionActive('/current-repertory') && <RepertoryWorks repertoryWorks={repertoryWorks} />}
-            </div>
-            { !!menuItems.length &&
-              <div className="col-md-3" id="subnav">              
-                <ul id="sub-nav">
-                  { sortBy(menuItems, 'menu_order')
+          {/* repertory works */}
+          { this.isSectionActive('/current-repertory') && <RepertoryWorks repertoryWorks={repertoryWorks} />}
+        </div>
+        { !!menuItems.length &&
+            <div className="col-md-3" id="subnav">
+              <ul id="sub-nav">
+                { sortBy(menuItems, 'menu_order')
                     .map(createLink)
                     .map((child, i) =>
                       <li className={classNames({['active']: this.isPageActive(child)})} key={i}>
                         {child}
                       </li>
-                  )}
-                </ul>
-              </div>
-            }
-          </div>
-        </div>
-      </Layout>
+                    )}
+                  </ul>
+                </div>
+        }
+      </div>
+    </Layout>
     );
   }
 }
