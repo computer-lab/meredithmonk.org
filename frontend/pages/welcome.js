@@ -29,7 +29,7 @@ class Index extends Component {
 
     return (
       <Layout headerMenu={headerMenu} isDark>
-        <video className="video" autoPlay loop>
+        <video className="video" autoPlay loop muted>
           <source src="/static/background.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
           <source src="/static/background.webm" type='video/webm; codecs="vp8, vorbis"' />
           <source src="/static/background.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
