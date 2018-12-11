@@ -379,6 +379,27 @@ $grid_gutter_size: 0.75rem;
   }
 }
 
+/* mailchimp signup form */
+.react-mailchimp-form {
+  display: flex;
+  flex-direction: column;
+  input {
+    max-width: 250px;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    padding: 0.3rem;
+  }
+  button {
+    max-width: 125px;
+    @extend .btn;
+    @extend .btn-primary;
+    font-size: 1.6rem;
+  }
+  .msg-alert {
+    margin-top: 1rem;
+  }
+}
+
 #footer {
   display: flex;
   align-items: center;
