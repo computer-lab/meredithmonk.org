@@ -5,6 +5,9 @@ runtime: php72
 # run a long-running PHP script as a worker process (e.g. "php worker.php").
 entrypoint: serve gae-app.php
 service: wordpress
+instance_class: F2
+automatic_scaling:
+  min_instances: 1
 
 handlers:
 - url: /(.*\.(htm|html|css|js))
