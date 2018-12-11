@@ -1,4 +1,9 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faFacebook, faTwitter, faInstagram, faYoutube,
+} from '@fortawesome/free-brands-svg-icons'
+
 
 const Footer = ({ isDark }) => (
   <React.Fragment>
@@ -10,6 +15,20 @@ const Footer = ({ isDark }) => (
         <p>New York, New York 10013</p>
         <p>☎ (212) 904-1330</p>
         <p><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#109;&#111;&#110;&#107;&#064;&#109;&#101;&#114;&#101;&#100;&#105;&#116;&#104;&#109;&#111;&#110;&#107;&#046;&#111;&#114;&#103;">monk@meredithmonk.org</a></p>
+        <div className="social-links">
+          <a href="https://www.facebook.com/meredithmonk">
+            <FontAwesomeIcon icon={faFacebook} />
+          </a>
+          <a href="https://www.youtube.com/user/mmonkhouse">
+            <FontAwesomeIcon icon={faYoutube} />
+          </a>
+          <a href="https://twitter.com/meredith_monk">
+            <FontAwesomeIcon icon={faTwitter} />
+          </a>
+          <a href="https://www.instagram.com/meredithmonk/">
+            <FontAwesomeIcon icon={faInstagram} />
+          </a>
+        </div>
       </address>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossOrigin="anonymous" />

@@ -402,10 +402,22 @@ $grid_gutter_size: 0.75rem;
     font-size: 1.2rem;
     margin-bottom: 0;
   }
+
+  a:hover {
+    color: $mm-brand;
+  }
+
+  .social-links a {
+    font-size: 1.65rem;
+    margin-right: 0.75rem;
+  }
 }
 
 #footer.dark {
   a, p {
     color: $white;
+  }
+  a:hover {
+    color: $mm-brand;
   }
 }
