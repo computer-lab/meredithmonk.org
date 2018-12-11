@@ -11,6 +11,7 @@ import { createLink } from '../src/util'
 import CalendarEvents from '../components/CalendarEvents'
 import Shop from '../components/Shop'
 import RepertoryWorks from '../components/RepertoryWorks'
+import MailingListSignup from '../components/MailingListSignup'
 
 class Page extends Component {
   static async getInitialProps(context) {
@@ -23,8 +24,8 @@ class Page extends Component {
 
     // get data for the top ancestor of this page, if it's different from this page
     const ancestorSlug = context.asPath.split('/')[1]
-    let ancestor; let
-      thisPage
+    let ancestor
+    let thisPage
     if (ancestorSlug !== slug) {
       const ancestorRes = await fetch(
         `${Config.apiUrl}/wp-json/postlight/v1/${apiRoute}?slug=${ancestorSlug}`,
@@ -62,6 +63,7 @@ class Page extends Component {
 
   render() {
     const {
+      router,
       headerMenu,
       repertoryWorks,
       pageProps: {
@@ -89,46 +91,49 @@ class Page extends Component {
             {/* shop */}
             {acf
               && (
-              <div>
-                {acf.featured_product_image
-                    && (
-                    <div class="featured-product">
-                      <img alt="featured product" src={safeGet(acf, 'featured_product_image.sizes.thumbnail')} />
-                      <div dangerouslySetInnerHTML={{
-                        __html: acf.featured_product_description,
-                      }}
-                      />
-                    </div>
-                    )
-                }
-                {acf.product_categories
-                    && <Shop categories={acf.product_categories} />
-                }
-              </div>
+                <div>
+                  {acf.featured_product_image
+                      && (
+                        <div class="featured-product">
+                          <img alt="featured product" src={safeGet(acf, 'featured_product_image.sizes.thumbnail')} />
+                          <div dangerouslySetInnerHTML={{
+                            __html: acf.featured_product_description,
+                          }}
+                          />
+                        </div>
+                      )
+                  }
+                  {acf.product_categories
+                      && <Shop categories={acf.product_categories} />
+                  }
+                </div>
               )
           }
 
             {/* repertory works */}
             { this.isSectionActive('/current-repertory') && <RepertoryWorks repertoryWorks={repertoryWorks} />}
+
+            {/* mailing list signup */}
+            { router.asPath.indexOf('/mailing-list') > -1 && <MailingListSignup />}
           </div>
           { !!menuItems.length
             && (
-            <div className="col-md-3" id="subnav">
-              <ul id="sub-nav">
-                {
-                  sortBy(menuItems, 'menu_order')
-                    .map(createLink)
-                    .map(child => (
-                      <li
-                        className={classNames({ active: this.isPageActive(child) })}
-                        key={child.props.as}
-                      >
-                        {child}
-                      </li>
-                    ))
-                }
-              </ul>
-            </div>
+              <div className="col-md-3" id="subnav">
+                <ul id="sub-nav">
+                  {
+                    sortBy(menuItems, 'menu_order')
+                      .map(createLink)
+                      .map(child => (
+                        <li
+                          className={classNames({ active: this.isPageActive(child) })}
+                          key={child.props.as}
+                        >
+                          {child}
+                        </li>
+                      ))
+                  }
+                </ul>
+              </div>
             )
         }
         </div>
