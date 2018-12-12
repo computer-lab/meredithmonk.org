@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import sortBy from 'lodash/sortBy'
 import safeGet from 'lodash/get'
 import Layout from '../components/Layout'
-import { Config } from '../config'
+import { API_URL } from '../config'
 import { createLink } from '../src/util'
 import CalendarEvents from '../components/CalendarEvents'
 import Shop from '../components/Shop'
@@ -19,7 +19,7 @@ class Page extends Component {
 
     // get data for this page
     const pageRes = await fetch(
-      `${Config.apiUrl}/wp-json/postlight/v1/${apiRoute}?slug=${slug}`,
+      `${API_URL}/wp-json/postlight/v1/${apiRoute}?slug=${slug}`,
     )
 
     // get data for the top ancestor of this page, if it's different from this page
@@ -28,7 +28,7 @@ class Page extends Component {
     let thisPage
     if (ancestorSlug !== slug) {
       const ancestorRes = await fetch(
-        `${Config.apiUrl}/wp-json/postlight/v1/${apiRoute}?slug=${ancestorSlug}`,
+        `${API_URL}/wp-json/postlight/v1/${apiRoute}?slug=${ancestorSlug}`,
       )
       ancestor = await ancestorRes.json()
     } else {
@@ -40,7 +40,7 @@ class Page extends Component {
 
     // get menu items for this page, if they exist
     const menuItemRes = await fetch(
-      `${Config.apiUrl}/wp-json/wp/v2/pages?parent=${ancestor.id}`,
+      `${API_URL}/wp-json/wp/v2/pages?parent=${ancestor.id}`,
     )
 
     const menuItems = await menuItemRes.json()

@@ -2,16 +2,16 @@ import React, { Component } from 'react'
 import fetch from 'isomorphic-unfetch'
 import Error from 'next/error'
 import Layout from '../components/Layout'
-import { Config } from '../config'
+import { API_URL } from '../config'
 
 class Index extends Component {
   static async getInitialProps() {
     const res = await fetch(
-      `${Config.apiUrl}/wp-json/postlight/v1/page?slug=welcome`,
+      `${API_URL}/wp-json/postlight/v1/page?slug=welcome`,
     )
     const post = await res.json()
     const childrenRes = await fetch(
-      `${Config.apiUrl}/wp-json/wp/v2/pages?parent=${post.id}`,
+      `${API_URL}/wp-json/wp/v2/pages?parent=${post.id}`,
     )
     const children = await childrenRes.json()
     return { post, children }

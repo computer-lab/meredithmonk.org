@@ -1,8 +1,10 @@
 import React from 'react'
+import Router from 'next/router'
+import withGA from 'next-ga'
 import App, { Container } from 'next/app'
-import { Config } from '../config'
+import { API_URL, GA_CODE } from '../config'
 
-export default class MyApp extends App {
+class MyApp extends App {
   constructor(props) {
     super(props)
     this.state = this.state || {}
@@ -20,10 +22,10 @@ export default class MyApp extends App {
     // get data that only needs to be gotten once (during SSR)
     if (ctx.req) {
       const headerMenuRes = await fetch(
-        `${Config.apiUrl}/wp-json/menus/v1/menus/header-menu`,
+        `${API_URL}/wp-json/menus/v1/menus/header-menu`,
       )
       const repertoryWorksRes = await fetch(
-        `${Config.apiUrl}/wp-json/wp/v2/work?_embed`,
+        `${API_URL}/wp-json/wp/v2/work?_embed`,
       )
       const headerMenu = await headerMenuRes.json()
       const repertoryWorks = await repertoryWorksRes.json()
@@ -57,3 +59,6 @@ export default class MyApp extends App {
     )
   }
 }
+
+// note that next-ga does not track on localhost
+export default withGA(GA_CODE, Router)(MyApp)
