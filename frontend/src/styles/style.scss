@@ -225,8 +225,13 @@ h1, h2 {
       padding: 10px;
     }
     td, th {
-      padding: 10px;
+      padding: 16px 10px;
       vertical-align: top;
+      line-height: 1.25;
+      .event-link {
+        display: inline-block;
+        margin-top: 4px;
+      }
       &:nth-child(1) {
         width: 40%;
       }
