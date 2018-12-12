@@ -33,8 +33,8 @@ const Shop = ({ categories }) => (
             <div className="product card" key={product.name}>
               <img className="card-img-top" src={safeGet(product, 'image.sizes.thumbnail')} alt={product.name} />
               <div className="card-body">
-                <div className="product-name card-text">{product.name}</div>
-                <div className="product-subtitle card-text">{product.subtitle}</div>
+                <div className="product-name card-text">{safeGet(product, 'name')}</div>
+                <div className="product-subtitle card-text">{safeGet(product, 'subtitle')}</div>
                 <ul className="product-purchase-links">
                   {
                     product.purchase_links
