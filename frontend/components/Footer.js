@@ -8,7 +8,6 @@ import {
 const Footer = ({ isDark }) => (
   <React.Fragment>
     <div id="footer" className={`${isDark ? 'dark' : ''}`}>
-      <img alt="monk logo" src="/static/images/MM-Gold-transparent.png" />
       <address>
         <p>Meredith Monk/The House Foundation for the Arts</p>
         <p>260 West Broadway Suite 2</p>
