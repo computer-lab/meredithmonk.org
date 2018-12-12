@@ -1,6 +1,7 @@
 import React from 'react'
 import compareAsc from 'date-fns/compare_asc'
 import isBefore from 'date-fns/is_before'
+import urlParse from 'url-parse'
 
 const CalendarEvents = ({ events }) => {
   const now = new Date()
@@ -31,10 +32,15 @@ const CalendarEvents = ({ events }) => {
                 }) => (
                   <tr key={name}>
                     <td>
-                      {link
-                        ? <a href={link.url} target={link.target} title={link.title}>{name}</a>
-                        : <>{name}</>
-                    }
+                      <b>{name}</b>
+                      {link && (
+                        <>
+                          <br />
+                          <a className="event-link" href={link.url} target={link.target} title={link.title}>
+                            {urlParse(link.url).hostname}
+                          </a>
+                        </>
+                      )}
                     </td>
                     <td>{date}</td>
                     <td>{location}</td>
