@@ -4,3 +4,4 @@ yarn-error.log
 wordpress/wp-content/languages/
 data
 scripts/source.mov
+.DS_Store
