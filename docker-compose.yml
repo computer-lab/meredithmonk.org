@@ -15,15 +15,15 @@ services:
         MYSQL_USER: wp_headless
         MYSQL_PASSWORD: wp_headless
 
-    wp_headless:
+    wp-headless:
       build:
         context: .
         dockerfile: Dockerfile-wp
       depends_on:
-        - db_headless
+        - db-headless
       volumes:
         - .:/var/www/html
-      container_name: wp_headless
+      container_name: wp-headless
       ports:
         - "8080:8080"
         - "3000:3000"
