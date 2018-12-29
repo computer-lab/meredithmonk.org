@@ -45,7 +45,7 @@ Let's get started.
 
 ## WordPress Backend
 
-Before you install WordPress, make sure you have [Docker](https://www.docker.com) installed.
+Before you install WordPress, make sure you have [Docker](https://www.docker.com) installed. On Linux, you might need to install [docker-compose](https://docs.docker.com/compose/install/#install-compose) separately.
 
 ### Install
 
@@ -54,9 +54,9 @@ The following commands will get WordPress running on your machine using Docker, 
 ```zsh
 > docker-compose up -d
 ```
-- Attach to the `wp_headless` container.
+- Attach to the `wp-headless` container.
 ```zsh
-> docker exec -it wp_headless /bin/bash
+> docker exec -it wp-headless /bin/bash
 ```
 - Setup headless wordpress by running yarn
 ```zsh
@@ -80,12 +80,10 @@ The primary theme code is located in `wordpress/wp-content/themes/postlight-head
 
 ## React Frontend
 
-**Prerequisite:** Node 7 is required.
-
 To spin up the frontend client app, run the following commands:
 
 ```zsh
-> docker exec -it wp_headless /bin/bash
+> docker exec -it wp-headless /bin/bash
 > cd frontend && yarn install && yarn start
 ```
 
@@ -107,6 +105,10 @@ To run the Docker container locally:
 ```
 
 ## Troubleshooting Common Errors
+**Breaking Change Alert - Docker**
+
+If you had the project already setup and then updated to a commit newer than `99b4d7b`, you will need to go through the [installation](https://github.com/postlight/headless-wp-starter/tree/feat-docker#install) process again because the project was migrated to Docker.
+You will need to also migrate MySQL data to the new MySQL db container.
 
 **CORS errors**
 

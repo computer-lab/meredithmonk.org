@@ -2,9 +2,9 @@
 version: '3.3'
 
 services:
-    db_headless:
+    db-headless:
       image: mysql:5.7.24
-      container_name: db_headless
+      container_name: db-headless
       ports:
         - "3307:3306"
       volumes:
