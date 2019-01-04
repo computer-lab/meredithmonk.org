@@ -1,31 +1,13 @@
-runtime: php72
-
-# Defaults to "serve index.php" and "serve public/index.php". Can be used to
-# serve a custom PHP front controller (e.g. "serve backend/index.php") or to
-# run a long-running PHP script as a worker process (e.g. "php worker.php").
-entrypoint: serve gae-app.php
+runtime: php
+env: flex
 service: wordpress
-instance_class: F2
 
-handlers:
-- url: /(.*\.(htm|html|css|js))
-  static_files: \1
-  upload: .*\.(htm|html|css|js)$
+beta_settings:
+  cloud_sql_instances: "wordpress-test-222422:us-central1:wordpress"
 
-- url: /wp-content/(.*\.(ico|jpg|jpeg|png|gif|woff|ttf|otf|eot|svg))
-  static_files: wp-content/\1
-  upload: wp-content/.*\.(ico|jpg|jpeg|png|gif|woff|ttf|otf|eot|svg)$
-
-- url: /(.*\.(ico|jpg|jpeg|png|gif|woff|ttf|otf|eot|svg))
-  static_files: \1
-  upload: .*\.(ico|jpg|jpeg|png|gif|woff|ttf|otf|eot|svg)$
-
-- url: /wp-includes/images/media/(.*\.(ico|jpg|jpeg|png|gif|woff|ttf|otf|eot|svg))
-  static_files: wp-includes/images/media/\1
-  upload: wp-includes/images/media/.*\.(ico|jpg|jpeg|png|gif|woff|ttf|otf|eot|svg)$
-
-- url: .*
-  script: auto
+runtime_config:
+  document_root: .
 
 env_variables:
+  WHITELIST_FUNCTIONS: escapeshellarg,escapeshellcmd,exec,pclose,popen,shell_exec,phpversion,php_uname
   FRONTEND_URL: https://frontend-dot-wordpress-test-222422.appspot.com
