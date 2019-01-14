@@ -32,6 +32,7 @@
         "lodash": "^4.17.11",
         "next": "^7.0.2",
         "next-ga": "^2.3.4",
+        "prop-types": "^15.6.2",
         "react": "^16.0.0",
         "react-mailchimp-form": "^1.0.1",
         "serve-favicon": "^2.5.0",

@@ -41,6 +41,19 @@ h1, h2 {
   transform: translate(-50%, -50%);
 }
 
+.audiotoggle {
+  position: absolute;
+  right: 2rem;
+  z-index: 1;
+  bottom: 1.5rem;
+  color: $themeColor-Light;
+  cursor: pointer;
+  font-size: 2rem;
+  &:hover {
+    color: $mm-brand;
+  }
+}
+
 /* wrapper -- page content never gets wider than this */
 #wrapper {
   padding: 20px 20px 0 20px;
@@ -58,7 +71,6 @@ h1, h2 {
   .navbar-brand {
     font-size: 3.4rem;
     font-family: Questrial, sans-serif;
-    text-transform: uppercase;
   }
   .navbar-nav {
     position: relative;
