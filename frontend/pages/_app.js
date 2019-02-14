@@ -25,7 +25,7 @@ class MyApp extends App {
         `${API_URL}/wp-json/menus/v1/menus/header-menu`,
       )
       const repertoryWorksRes = await fetch(
-        `${API_URL}/wp-json/wp/v2/work?_embed`,
+        `${API_URL}/wp-json/wp/v2/work?_embed&per_page=100`,
       )
       const headerMenu = await headerMenuRes.json()
       const repertoryWorks = await repertoryWorksRes.json()
