@@ -1,5 +1,6 @@
 import React from 'react'
 import compareAsc from 'date-fns/compare_asc'
+import compareDesc from 'date-fns/compare_desc'
 import isBefore from 'date-fns/is_before'
 import urlParse from 'url-parse'
 
@@ -7,11 +8,12 @@ const CalendarEvents = ({ events }) => {
   const now = new Date()
   const pastEvents = events
     .filter(({ sort_date }) => isBefore(sort_date, now))
-    .sort(compareAsc)
+    .sort((a, b) => compareDesc(a.sort_date, b.sort_date))
   const upcomingEvents = events
     .filter(({ sort_date }) => !isBefore(sort_date, now))
-    .sort(compareAsc)
+    .sort((a, b) => compareDesc(a.sort_date, b.sort_date))
   const labels = ['Upcoming Events', 'Past Events']
+
   return (
     <div id="calendar-events">
       {[upcomingEvents, pastEvents].map((eventsGroup, i) => (
@@ -30,7 +32,7 @@ const CalendarEvents = ({ events }) => {
                 {eventsGroup.map(({
                   name, date, location, link,
                 }) => (
-                  <tr key={name}>
+                  <tr key={name + date}>
                     <td>
                       <b>{name}</b>
                       {link && (
