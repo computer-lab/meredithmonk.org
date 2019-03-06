@@ -94,7 +94,7 @@ class Page extends Component {
                 <div>
                   {acf.featured_product_image
                       && (
-                        <div class="featured-product">
+                        <div className="featured-product">
                           <img alt="featured product" src={safeGet(acf, 'featured_product_image.sizes.thumbnail')} />
                           <div dangerouslySetInnerHTML={{
                             __html: acf.featured_product_description,
