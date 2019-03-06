@@ -456,6 +456,7 @@ $grid_gutter_size: 0.75rem;
   text-align: center;
   line-height: 2;
   flex-direction: column;
+  align-self: center;
   
   @include media-breakpoint-up(sm) {
     flex-direction: row;
@@ -485,9 +486,16 @@ $grid_gutter_size: 0.75rem;
     color: $mm-brand;
   }
 
+  address {
+    margin-top: 0.6rem;
+  }
+
+  .social-links {
+    margin-top: -0.6rem;
+  }
+
   .social-links a {
-    font-size: 1.65rem;
-    margin-right: 1rem;
+    margin-right: 0.6rem;
   }
 }
 

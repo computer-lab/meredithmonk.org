@@ -16,6 +16,7 @@ const Footer = ({ isDark }) => (
       <div>
         <p>☎ (212) 904-1330</p>
         <p><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#109;&#111;&#110;&#107;&#064;&#109;&#101;&#114;&#101;&#100;&#105;&#116;&#104;&#109;&#111;&#110;&#107;&#046;&#111;&#114;&#103;">monk@meredithmonk.org</a></p>
+        <p><a href="/support/mailing-list">Join Mailing List</a></p>
         <div className="social-links">
           <a href="https://www.facebook.com/meredithmonk" title="Facebook">
             <FontAwesomeIcon icon={faFacebook} />
