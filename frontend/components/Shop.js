@@ -37,8 +37,9 @@ const Shop = ({ categories }) => (
                 <div className="product-subtitle card-text">{safeGet(product, 'subtitle')}</div>
                 <ul className="product-purchase-links">
                   {
-                    product.purchase_links
-                      .map(link => <li key={link}>{prettyLink(link.link)}</li>)
+                    product.purchase_links &&
+                      product.purchase_links
+                        .map(link => <li key={link.link}>{prettyLink(link.link)}</li>)
                   }
                 </ul>
               </div>
