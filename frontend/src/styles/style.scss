@@ -277,7 +277,7 @@ h1, h2 {
   #calendar-events tr {
     display: block;
   }
-    
+
   #calendar-events td {
     border-bottom: 1px solid $gray-200;
     @media only screen and (max-width: 768px) {
@@ -457,7 +457,7 @@ $grid_gutter_size: 0.75rem;
   line-height: 2;
   flex-direction: column;
   align-self: center;
-  
+
   @include media-breakpoint-up(sm) {
     flex-direction: row;
     text-align: left;
@@ -487,15 +487,16 @@ $grid_gutter_size: 0.75rem;
   }
 
   address {
-    margin-top: 0.6rem;
+    margin-top: 0.8rem;
   }
 
   .social-links {
-    margin-top: -0.6rem;
+    margin-top: -0.56rem;
+    font-size: 1.55rem;
   }
 
   .social-links a {
-    margin-right: 0.6rem;
+    margin-right: 0.65rem;
   }
 }
 
