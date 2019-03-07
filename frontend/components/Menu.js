@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import { withRouter } from 'next/router'
 import Link from 'next/link'
+import Bounce from 'react-reveal/Bounce'
 import { createLink } from '../src/util'
 
 class Menu extends Component {
@@ -17,7 +18,7 @@ class Menu extends Component {
 
     return (
       <nav className={`navbar navbar-expand-lg navbar-${isDark ? 'dark' : 'light'} container-fluid`}>
-        <Link href="/welcome/?slug=welcome&apiRoute=welcome" as="/">
+        <Link prefetch href="/welcome/?slug=welcome&apiRoute=welcome" as="/">
           <a className="navbar-brand">Meredith Monk</a>
         </Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,11 +26,17 @@ class Menu extends Component {
         </button>
         <div className="collapse navbar-collapse" id="navbarToggler">
           <ul className="navbar-nav ml-auto">
-            { menu.items.map(createLink).map(link => (
-              <li className={classNames('nav-item', { active: this.isActive(link) })} key={link.props.as}>
-                { link }
-              </li>
-            ))}
+            {
+              menu.items.map(createLink).map((link, i, arr) => {
+                const li = (
+                  <li className={classNames('nav-item', { active: this.isActive(link) })} key={link.props.as}>
+                    { link }
+                  </li>
+                )
+                if (arr.length === i + 1) return <Bounce key={link.props.as} ssrReveal top>{li}</Bounce>
+                return li
+              })
+            }
           </ul>
         </div>
       </nav>

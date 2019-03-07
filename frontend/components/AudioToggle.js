@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVolumeOff, faVolumeUp } from '@fortawesome/free-solid-svg-icons'
 
 const AudioToggle = ({ muted }) => (
-  muted ? <FontAwesomeIcon icon={faVolumeOff} /> : <FontAwesomeIcon icon={faVolumeUp} />
+  muted
+    ? <FontAwesomeIcon title="turn on audio" icon={faVolumeOff} />
+    : <FontAwesomeIcon title="turn off audio" icon={faVolumeUp} />
 )
 
 AudioToggle.propTypes = {

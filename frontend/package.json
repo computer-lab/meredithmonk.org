@@ -35,6 +35,7 @@
         "prop-types": "^15.6.2",
         "react": "^16.0.0",
         "react-mailchimp-form": "^1.0.1",
+        "react-reveal": "^1.2.2",
         "serve-favicon": "^2.5.0",
         "url-parse": "^1.4.4"
     },

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import fetch from 'isomorphic-unfetch'
 import Error from 'next/error'
+import Bounce from 'react-reveal/Bounce'
 import Layout from '../components/Layout'
 import AudioToggle from '../components/AudioToggle'
 import { API_URL } from '../config'
@@ -56,7 +57,7 @@ class Index extends Component {
           }}
         />
         <div className="audiotoggle" onClick={this.handleAudioToggle}>
-          <AudioToggle muted={muted} />
+          <Bounce ssrReveal><AudioToggle muted={muted} /></Bounce>
         </div>
       </Layout>
     )

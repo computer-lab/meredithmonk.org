@@ -1,8 +1,10 @@
 import React from 'react'
+import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faFacebook, faTwitter, faInstagram, faYoutube,
 } from '@fortawesome/free-brands-svg-icons'
+import Fade from 'react-reveal/Fade'
 
 
 const Footer = ({ isDark }) => (
@@ -16,7 +18,7 @@ const Footer = ({ isDark }) => (
       <div>
         <p><a href="tel:1-212-904-1330">☎ (212) 904-1330</a></p>
         <p><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#109;&#111;&#110;&#107;&#064;&#109;&#101;&#114;&#101;&#100;&#105;&#116;&#104;&#109;&#111;&#110;&#107;&#046;&#111;&#114;&#103;">monk@meredithmonk.org</a></p>
-        <p><a href="/support/mailing-list">Join Mailing List</a></p>
+        <p><Link prefetch as="/support/mailing-list" href="/page?slug=mailing-list&apiRoute=page"><a>Join Mailing List</a></Link></p>
         <div className="social-links">
           <a href="https://www.facebook.com/meredithmonk" title="Facebook">
             <FontAwesomeIcon icon={faFacebook} />

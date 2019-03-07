@@ -27,7 +27,7 @@ export const createLink = (item, index) => {
         href={`/page?slug=${item.slug}&apiRoute=page`}
         key={item.id}
       >
-        {item.title.rendered}
+        <a>{item.title.rendered}</a>
       </Link>
     )
   }
