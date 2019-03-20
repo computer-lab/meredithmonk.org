@@ -12,7 +12,6 @@
 # below:
 .git
 .gitignore
-.htaccess
 
 # PHP Composer dependencies:
 ## Ensures only top-level "vendor" is ignored

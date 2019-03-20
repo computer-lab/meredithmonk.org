@@ -1,8 +1,0 @@
-{
-    "require": {
-        "google/cloud": "~0.21"
-    },
-    "require-dev": {
-        "wp-cli/wp-cli": "~1.1"
-    }
-}
