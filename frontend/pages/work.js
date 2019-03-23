@@ -21,13 +21,17 @@ class Work extends Component {
       pageProps: { post },
     } = this.props
 
+    const showFeaturedImage = false
+
     return (
       <Layout headerMenu={headerMenu}>
-        <div className="row">
-          <div className="col">
-            <img className="work-featured-image" src={safeGet(post, "['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['full']['source_url']")} alt={post.title.rendered} />
+        {showFeaturedImage && (
+          <div className="row">
+            <div className="col">
+              <img className="work-featured-image" src={safeGet(post, "['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['full']['source_url']")} alt={post.title.rendered} />
+            </div>
           </div>
-        </div>
+        )}
         <div className="row">
           <div className="col work-description" id="content">
             <div dangerouslySetInnerHTML={{
