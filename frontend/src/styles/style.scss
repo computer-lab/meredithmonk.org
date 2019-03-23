@@ -460,6 +460,53 @@ $grid_gutter_size: 0.75rem;
   }
 }
 
+/* giving page */
+.page-give {
+  table {
+    width: 100%;
+    margin-bottom: 20px;
+
+    td {
+      padding-top: 15px;
+      &:nth-child(1) {
+        width: 70%;
+        border-right: 1px solid #eee;
+        padding-right: 20px;
+
+        strong {
+          color: $mm-brand;
+        }
+      }
+
+      &:nth-child(2) {
+        padding-left: 20px;
+        em {
+          font-size: 12px;
+        }
+      }
+
+      ul {
+        padding-left: 18px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    tr {
+      display: flex;
+      flex-direction: column;
+
+      td {
+        &:nth-child(1) {
+          width: 100%;
+          border-right: none;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+}
+
 /* mailchimp signup form */
 .react-mailchimp-form {
   display: flex;

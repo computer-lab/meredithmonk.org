@@ -77,7 +77,7 @@ class Page extends Component {
 
     return (
       <Layout headerMenu={headerMenu}>
-        <div className={classNames('row', 'content-row', { cols: !!menuItems.length })}>
+        <div className={classNames('row', 'content-row', { cols: !!menuItems.length }, `page-${page.slug}`)}>
           <div className={classNames('col', { solo: !menuItems.length })} id="content">
             {/* <h1>{page.title.rendered}</h1> */}
             <div dangerouslySetInnerHTML={{
