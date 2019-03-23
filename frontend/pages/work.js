@@ -22,6 +22,7 @@ class Work extends Component {
     } = this.props
 
     const showFeaturedImage = false
+    const is_current_repertory_work = safeGet(post, 'acf.is_current_repertory_work');
 
     return (
       <Layout headerMenu={headerMenu}>
@@ -34,6 +35,12 @@ class Work extends Component {
         )}
         <div className="row">
           <div className="col work-description" id="content">
+            {is_current_repertory_work && (
+              <div className="work-current-tag">
+                <span>current</span>
+                part of Meredith Monk and Vocal Ensemble’s current repertory
+              </div>
+            )}
             <div dangerouslySetInnerHTML={{
               __html: post.content.rendered,
             }}

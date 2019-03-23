@@ -386,6 +386,10 @@ $grid_gutter_size: 0.75rem;
   text-align: center;
   &.card {
     margin-top: 0;
+    .card-img-top {
+      border-radius: 5px;
+      box-shadow: 0px 0px 5px 0px rgba(189,189,189,0.3);
+    }
     .card-body {
       padding: 0.5rem 0 0.75rem 0;
       .card-text {
@@ -395,10 +399,46 @@ $grid_gutter_size: 0.75rem;
         }
       }
     }
+    &.current {
+      > a {
+        position: relative;
+        display: inline-block;
+        &:after {
+          content: 'CURRENT';
+          position: absolute;
+          top: -9px;
+          left: 11px;
+          background: rgba(255, 236, 237, 1);
+          border: 0.5px solid rgba(215, 41, 47, 0.9);
+          border-radius: 3px;
+          font-size: 10px;
+          padding: 1px 4px;
+          color: rgba(215, 41, 47, 0.8);
+          pointer-events: none;
+        }
+      }
+    }
   }
 }
 
 /* individual work page */
+.work-current-tag {
+  font-size: 12px;
+  span {
+    display: inline-block;
+    text-transform: uppercase;
+    background: rgba(255, 236, 237, 1);
+    border: 0.5px solid rgba(215, 41, 47, 0.9);
+    border-radius: 3px;
+    padding: 2px 6px;
+    color: rgba(215, 41, 47, 0.8);
+    pointer-events: none;
+    margin-right: 7px;
+  }
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+ 
 .work-featured-image {
   display: block;
   margin: 0 auto 3rem auto;
