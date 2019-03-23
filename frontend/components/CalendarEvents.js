@@ -32,7 +32,7 @@ const CalendarEvents = ({ events }) => {
                 {eventsGroup.map(({
                   name, date, location, link,
                 }) => (
-                  <tr key={name + date}>
+                  <tr key={name + date + location}>
                     <td>
                       <b>{name}</b>
                       {link && (
