@@ -1,4 +1,3 @@
 runtime: nodejs8
-service: frontend
 
 instance_class: F2

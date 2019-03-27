@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wp-migrate-db-pro-cli\n"
 "Report-Msgid-Bugs-To: nom@deliciousbrains.com\n"
-"POT-Creation-Date: 2018-11-27 09:56-0500\n"
+"POT-Creation-Date: 2019-02-07 09:09-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,61 +92,72 @@ msgid "Export saved to: %s"
 msgstr ""
 
 #: class/wpmdbpro-cli-settings.php:66
+#: src/wp-migrate-db-pro-cli/class/Setting.php:105
 #: src/wp-migrate-db-pro-cli/class/Setting.php:107
 #, php-format
 msgid "Invalid action parameter - `%s`"
 msgstr ""
 
 #: class/wpmdbpro-cli-settings.php:72
+#: src/wp-migrate-db-pro-cli/class/Setting.php:111
 #: src/wp-migrate-db-pro-cli/class/Setting.php:113
 #, php-format
 msgid "Invalid setting parameter - `%s`"
 msgstr ""
 
 #: class/wpmdbpro-cli-settings.php:81
+#: src/wp-migrate-db-pro-cli/class/Setting.php:120
 #: src/wp-migrate-db-pro-cli/class/Setting.php:122
 msgid "Please pass a value to update."
 msgstr ""
 
 #: class/wpmdbpro-cli-settings.php:87
+#: src/wp-migrate-db-pro-cli/class/Setting.php:126
 #: src/wp-migrate-db-pro-cli/class/Setting.php:128
 msgid "Invalid parameter for push/push settings. Value must be `on` or `off`."
 msgstr ""
 
 #: class/wpmdbpro-cli-settings.php:95
+#: src/wp-migrate-db-pro-cli/class/Setting.php:135
 #: src/wp-migrate-db-pro-cli/class/Setting.php:137
 #, php-format
 msgid "%s setting updated."
 msgstr ""
 
 #: class/wpmdbpro-cli-settings.php:97
+#: src/wp-migrate-db-pro-cli/class/Setting.php:137
 #: src/wp-migrate-db-pro-cli/class/Setting.php:139
 msgid "Setting unchanged."
 msgstr ""
 
 #: class/wpmdbpro-cli-settings.php:100
+#: src/wp-migrate-db-pro-cli/class/Setting.php:140
 #: src/wp-migrate-db-pro-cli/class/Setting.php:142
 msgid "The connection-key cannot be set via the CLI."
 msgstr ""
 
 #: class/wpmdbpro-cli-settings.php:105
+#: src/wp-migrate-db-pro-cli/class/Setting.php:145
 #: src/wp-migrate-db-pro-cli/class/Setting.php:147
 msgid "License updated."
 msgstr ""
 
 #: class/wpmdbpro-cli-settings.php:120
+#: src/wp-migrate-db-pro-cli/class/Setting.php:160
 #: src/wp-migrate-db-pro-cli/class/Setting.php:162
 #, php-format
 msgid "Too many positional arguments: %s"
 msgstr ""
 
 #: class/wpmdbpro-cli-settings.php:133
+#: src/wp-migrate-db-pro-cli/class/Setting.php:173
 #: src/wp-migrate-db-pro-cli/class/Setting.php:175
 #, php-format
 msgid "No setting `%s` currently saved in the database."
 msgstr ""
 
 #: class/wpmdbpro-cli-settings.php:176
+#: src/wp-migrate-db-pro-cli/class/Setting.php:216
 #: src/wp-migrate-db-pro-cli/class/Setting.php:218
 msgid "Checking license key..."
 msgstr ""
@@ -306,6 +317,7 @@ msgid ""
 "addon to get rid of this message."
 msgstr ""
 
+#: src/wp-migrate-db-pro-cli/class/CliAddon.php:27
 #: src/wp-migrate-db-pro-cli/class/CliAddon.php:29
 #, php-format
 msgid ""

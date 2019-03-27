@@ -79,8 +79,7 @@ class Cli extends Export {
 		BackupExport $backup_export,
 		Properties $properties,
 		Multisite\Multisite $multisite,
-		Import $import,
-		DynamicProperties $dynamic_properties
+		Import $import
 	) {
 		parent::__construct(
 			$form_data,
@@ -92,18 +91,19 @@ class Cli extends Export {
 			$finalize_migration,
 			$http_helper,
 			$migration_manager,
-			$migration_state_manager,
-			$dynamic_properties
+			$migration_state_manager
 		);
 		$this->connection         = $connection;
 		$this->backup_export      = $backup_export;
 		$this->properties         = $properties;
 		$this->multisite          = $multisite;
 		$this->import             = $import;
-		$this->dynamic_properties = $dynamic_properties;
+		$this->dynamic_properties = DynamicProperties::getInstance();
 	}
 
 	public function register() {
+		parent::register();
+
 		// extra profile fields
 		add_filter( 'wpmdb_accepted_profile_fields', array( $this, 'accepted_profile_fields' ) );
 
@@ -141,7 +141,7 @@ class Cli extends Export {
 		add_filter( 'wpmdb_cli_filter_before_cli_initiate_migration', array( $this, 'check_remote_wpmdbpro_mst_before_migration' ), 20, 2 );
 
 		// flush rewrite rules
-		add_filter( 'wpmdb_cli_finalize_migration_response', array( $this, 'finalize_flush' ), 20, 1 );
+		add_filter( 'wpmdb_cli_finalize_migration_response', array( $this, 'finalize_flush' ), 20, 2 );
 
 		// add backup stage
 		add_filter( 'wpmdb_cli_initiate_migration_args', array( $this, 'initate_migration_enable_backup' ), 10, 2 );
@@ -720,10 +720,10 @@ class Cli extends Export {
 	 *
 	 * @return string
 	 */
-	function finalize_flush( $response ) {
+	function finalize_flush( $response, $post_data ) {
 		\WP_CLI::log( _x( 'Flushing caches and rewrite rules...', 'The caches and rewrite rules for the target are being flushed', 'wp-migrate-db-pro-cli' ) );
 
-		$args     = $this->http_helper->filter_post_elements( $this->post_data, array( 'action', 'migration_state_id' ) );
+		$args     = $this->http_helper->filter_post_elements( $post_data, array( 'action', 'migration_state_id' ) );
 		$response = $this->flush( $args );
 
 		return trim( $response );

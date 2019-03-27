@@ -2,8 +2,8 @@
 Contributors: ClaudioLaBarbera
 Tags: api, json, json-rest-api, menu-routes, menus, REST, wp-api, wp-rest-api, v2
 Requires at least: 4.4
-Tested up to: 4.8.1
-Stable tag: 0.3.2
+Tested up to: 5.1
+Stable tag: 0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,8 @@ The new routes available will be:
 
 * `/menus/v1/menus` list of every registered menu.
 * `/menus/v1/menus/<slug>` data for a specific menu.
+
+ACF custom fields supported
 
 == Installation ==
 
@@ -39,6 +41,10 @@ Of course! This is the GitHub Repository https://github.com/thebatclaudio/wp-res
 Nothing to show. This plugin has no settings or frontend, it just extends WP API with new routes.
 
 == Changelog ==
+
+0.5 - Added support for ACF custom fields
+
+0.4 - Added nested menus support and pages slugs
 
 0.3.2 - Bug fix: allowing underscore values in menu slug regexp
 

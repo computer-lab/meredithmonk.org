@@ -42,7 +42,6 @@ class Setting extends \DeliciousBrains\WPMDB\Common\Cli\Cli {
 		Helper $http_helper,
 		MigrationManager $migration_manager,
 		MigrationStateManager $migration_state_manager,
-		DynamicProperties $dynamic_properties,
 		License $license,
 		Settings $settings
 	) {
@@ -56,8 +55,7 @@ class Setting extends \DeliciousBrains\WPMDB\Common\Cli\Cli {
 			$finalize_migration,
 			$http_helper,
 			$migration_manager,
-			$migration_state_manager,
-			$dynamic_properties
+			$migration_state_manager
 		);
 
 		$this->allowed_actions          = array( 'get', 'update' );

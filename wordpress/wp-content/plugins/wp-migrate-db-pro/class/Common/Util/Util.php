@@ -7,6 +7,7 @@ use DeliciousBrains\WPMDB\Common\Filesystem\Filesystem;
 use DeliciousBrains\WPMDB\Common\Properties\Properties;
 use DeliciousBrains\WPMDB\Common\Settings\Settings;
 use DeliciousBrains\WPMDB\Container;
+use DeliciousBrains\WPMDB\Pro\Transfers\Files\Payload;
 
 /**
  * Class Util
@@ -25,6 +26,8 @@ class Util {
 	 * @var Filesystem
 	 */
 	private $filesystem;
+	private $container;
+	private $form_data;
 
 	public function __construct(
 		Properties $properties,
@@ -410,11 +413,11 @@ class Util {
 	}
 
 	function set_time_limit() {
-			@set_time_limit( 0 );
+		@set_time_limit( 0 );
 	}
 
 	function display_errors() {
-		$error_log = Container::getInstance()->get( 'error_log' );
+		$error_log  = Container::getInstance()->get( 'error_log' );
 		$curr_error = $error_log->getError();
 		if ( ! empty( $curr_error ) ) {
 			echo $error_log->getError();
@@ -584,7 +587,8 @@ class Util {
 			switch_to_blog( $blog_id );
 		}
 
-		$uploads = wp_upload_dir();
+		$uploads    = wp_upload_dir();
+		$upload_dir = $uploads['basedir'];
 
 		if ( ! empty( $blog_id ) && is_multisite() ) {
 			restore_current_blog();
@@ -592,7 +596,19 @@ class Util {
 			if ( empty( $primary_uploads ) ) {
 				$primary_uploads = $this->uploads_info();
 			}
-			$uploads['short_basedir'] = str_replace( trailingslashit( $primary_uploads['basedir'] ), '', trailingslashit( $uploads['basedir'] ) );
+
+			$main_uploads             = $primary_uploads['basedir'];
+			$uploads['short_basedir'] = str_replace( trailingslashit( $main_uploads ), '', trailingslashit( $upload_dir ) );
+
+			if ( defined( 'UPLOADBLOGSDIR' ) && get_site_option( 'ms_files_rewriting' ) ) {
+
+				// Get local upload path info from DB
+				switch_to_blog( $blog_id );
+				$upload_path = get_option( 'upload_path' );
+				if ( ! empty( $upload_path ) ) {
+					$uploads['short_basedir'] = str_replace( trailingslashit( UPLOADBLOGSDIR ), '', trailingslashit( $upload_path ) );
+				}
+			}
 		}
 
 		return $uploads;
@@ -603,10 +619,14 @@ class Util {
 	 *
 	 * @param string $key
 	 *
+	 * @param array  $form_data
+	 *
 	 * @return mixed
 	 */
-	function profile_value( $key ) {
-		$form_data = Container::getInstance()->get( 'form_data' )->getFormData();
+	function profile_value( $key, $form_data = [] ) {
+		if ( empty( $form_data ) ) {
+			$form_data = Container::getInstance()->get( 'form_data' )->getFormData();
+		}
 
 		if ( ! empty( $key ) && ! empty( $form_data ) && isset( $form_data[ $key ] ) ) {
 			return $form_data[ $key ];
@@ -925,15 +945,20 @@ class Util {
 
 	// Ripped from WP Core to be used in `plugins_loaded` hook
 	public static function is_plugin_active_for_network( $plugin ) {
-		if ( !is_multisite() )
+		if ( ! is_multisite() ) {
 			return false;
+		}
 
-		$plugins = get_site_option( 'active_sitewide_plugins');
-		if ( isset($plugins[$plugin]) )
+		$plugins = get_site_option( 'active_sitewide_plugins' );
+		if ( isset( $plugins[ $plugin ] ) ) {
 			return true;
+		}
 
 		return false;
 	}
 
+	public static function get_state_data() {
+		return Container::getInstance()->get( 'state_data_container' )->state_data;
+	}
 }
 

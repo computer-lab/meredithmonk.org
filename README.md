@@ -68,6 +68,16 @@ When the installation process completes successfully:
 *   The WordPress GraphQL API is available at [http://localhost:8080/graphql](http://localhost:8080/graphql)
 *   The WordPress admin is at [http://localhost:8080/wp-admin/](http://localhost:8080/wp-admin/) default login credentials `nedstark` / `winteriscoming`
 
+
+### Update Plugins
+
+- Attach to the `wp-headless` container and use the WP CLI:
+
+```
+> docker exec -it wp-headless /bin/bash
+> wp plugin update --allow-root
+```
+
 ### Import Data (Optional)
 
 To import data and media from a live WordPress installation, you can use the Migrate DB Pro plugin, which is already installed. To do so, in the `robo.yml` file, set the plugin license and source install. Run `robo wordpress:setup`, then run `robo wordpress:import` to pull in the data.

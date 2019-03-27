@@ -2,21 +2,19 @@
 
 namespace DeliciousBrains\WPMDBCli;
 
-use DeliciousBrains\WPMDB\Common\Properties\DynamicProperties;
 use DeliciousBrains\WPMDB\Common\Properties\Properties;
 use DeliciousBrains\WPMDB\Pro\Addon\Addon;
 use DeliciousBrains\WPMDB\Pro\Addon\AddonAbstract;
 
 class CliAddon extends AddonAbstract {
 
-	const MDB_VERSION_REQUIRED = '1.9b1';
+	const MDB_VERSION_REQUIRED = '1.9.3b1';
 
 	public function __construct(
 		Addon $addon,
-		Properties $properties,
-		DynamicProperties $dynamic_properties
+		Properties $properties
 	) {
-		parent::__construct( $addon, $properties, $dynamic_properties );
+		parent::__construct( $addon, $properties );
 	}
 
 	public function register() {

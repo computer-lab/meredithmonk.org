@@ -9,3 +9,5 @@ Get all menus:
 Get menus data from slug:
 
     GET /menus/v1/menus/{slug}
+
+ACF custom fields supported
