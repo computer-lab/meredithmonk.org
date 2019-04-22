@@ -48,8 +48,8 @@ class Work extends Component {
             <div className="see-more">
               <span className="arrow">←</span>
               <Link
-                as="/current-repertory"
-                href="/page?slug=current-repertory&apiRoute=page"
+                as="/repertory"
+                href="/page?slug=repertory&apiRoute=page"
               >
                 <a href="/">See more work</a>
               </Link>

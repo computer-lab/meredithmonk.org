@@ -44,7 +44,7 @@ app
             }
 
             // individual repertory work page
-            if (req.path.indexOf('/current-repertory/') === 0 && req.path !== '/current-repertory/') {
+            if (req.path.indexOf('/repertory/') === 0 && req.path !== '/repertory/') {
                 apiRoute = 'work'
                 templateFile = '/work'
             }

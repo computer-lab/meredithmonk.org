@@ -18,7 +18,7 @@ const RepertoryWorks = ({ repertoryWorks }) => (
           <div className="card-img-wrap">
             <Link
               prefetch
-              as={`/current-repertory/${work.slug}/`}
+              as={`/repertory/${work.slug}/`}
               href={work.link}
             >
               <a>
@@ -30,7 +30,7 @@ const RepertoryWorks = ({ repertoryWorks }) => (
             <div className="work-name card-text">
               <Link
                 prefetch
-                as={`/current-repertory/${work.slug}/`}
+                as={`/repertory/${work.slug}/`}
                 href={work.link}
               >
                 <a>{work.title.rendered}</a>

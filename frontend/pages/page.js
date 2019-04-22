@@ -111,7 +111,7 @@ class Page extends Component {
           }
 
             {/* repertory works */}
-            { this.isSectionActive('/current-repertory') && <RepertoryWorks repertoryWorks={repertoryWorks} />}
+            { this.isSectionActive('/repertory') && <RepertoryWorks repertoryWorks={repertoryWorks} />}
 
             {/* mailing list signup */}
             { router.asPath.indexOf('/mailing-list') > -1 && <MailingListSignup />}
