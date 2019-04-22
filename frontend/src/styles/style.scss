@@ -236,6 +236,14 @@ h1, h2 {
       &:first-of-type { border-top: 1px solid $gray-200; }
       border-bottom: 1px solid $gray-200;
       padding: 10px;
+
+      &.year-separator {
+        border-top: 0;
+        td {
+          padding-top: 25px;
+          color: $mm-brand;  
+        }
+      }
     }
     td, th {
       padding: 16px 10px;
@@ -366,7 +374,7 @@ $grid_gutter_size: 1.5rem;
   }
 }
 
-/* current repertory */
+/* repertory */
 
 $grid_gutter_size: 0.75rem;
 
