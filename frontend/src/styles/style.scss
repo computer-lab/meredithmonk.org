@@ -394,19 +394,18 @@ $grid_gutter_size: 0.75rem;
   text-align: center;
   &.card {
     margin-top: 0;
-    .card-img-wrap {
-      height: 300px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #111;
-      overflow: hidden;
-
-      .card-img-top {
-        border-radius: 5px;
-        box-shadow: 0px 0px 5px 0px rgba(189,189,189,0.3);
-        width: 100%;
-      }  
+    .card-img-top {
+      border-radius: 5px;
+      box-shadow: 0px 0px 5px 0px rgba(189,189,189,0.3);
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      width: 100%;
+      &:before {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+      }
     }
     .card-body {
       padding: 0.5rem 0 0.75rem 0;
