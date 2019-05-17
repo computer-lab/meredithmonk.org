@@ -56,7 +56,7 @@ h1, h2 {
 
 /* wrapper -- page content never gets wider than this */
 #wrapper {
-  padding: 20px 20px 0 20px;
+  padding: 20px 4px 0 4px;
   margin: 0 auto;
   max-width: 1160px;
   display: flex;
@@ -69,7 +69,10 @@ h1, h2 {
   margin-bottom: 1rem;
   padding: 0 15px;
   .navbar-brand {
-    font-size: 3.4rem;
+    font-size: 2.8rem;
+    @include media-breakpoint-up(md) {
+      font-size: 3.4rem;
+    }
     font-family: Questrial, sans-serif;
   }
   .navbar-nav {
@@ -129,9 +132,9 @@ h1, h2 {
 #subnav {
   order: 2;
   max-width: 25rem;
-  margin: 0 auto;
+  margin: 0;
   @include media-breakpoint-up(md) {
-    margin: 0;
+    margin: 0 auto;
     padding-right: 24px;
   }
   ul {
