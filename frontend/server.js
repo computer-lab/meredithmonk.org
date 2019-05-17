@@ -20,6 +20,9 @@ app
         server.get("/*", (req, res) => {
             // redirect some pages to their first children
             // must also edit src/util.js for client-side redirect
+            if (req.path === '/support.html') {
+                res.redirect('/support/give/');
+            }
             if (req.path.match(/^\/about\/?$/)) {
                 res.redirect('/about/biography/');
             }
