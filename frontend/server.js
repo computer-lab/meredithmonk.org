@@ -29,6 +29,9 @@ app
             if (req.path.match(/^\/education\/?$/)) {
                 res.redirect('/about/workshops/');
             }
+            if (req.path.match(/^\/store\/?$/)) {
+                res.redirect('/store/cds/');
+            }
             if (req.path.match(/^\/support\/?$/)) {
                 res.redirect('/support/give/');
             }
