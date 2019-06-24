@@ -69,13 +69,14 @@ When the installation process completes successfully:
 *   The WordPress admin is at [http://localhost:8080/wp-admin/](http://localhost:8080/wp-admin/) default login credentials `nedstark` / `winteriscoming`
 
 
-### Update Plugins
+### Update Plugins / Core
 
 - Attach to the `wp-headless` container and use the WP CLI:
 
 ```
 > docker exec -it wp-headless /bin/bash
 > wp plugin update --allow-root
+> wp core update --allow-root
 ```
 
 ### Import Data (Optional)
