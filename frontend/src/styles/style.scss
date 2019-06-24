@@ -223,10 +223,12 @@ h1, h2 {
   }
   p img {
     border: 1px solid $gray-300;
-    box-shadow: 0 2px 14px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 2px 14px 0 rgba(0,0,0,0.05);
     padding: 4px;
+    @include media-breakpoint-up(md) {
+      left: -5px;
+    }
     position: relative;
-    left: -4px;
     width: 1000px;
   }
   h1 {
