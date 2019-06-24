@@ -19,21 +19,22 @@ app
 
         server.get("/*", (req, res) => {
             // redirect some pages to their first children
+            // and handle .html suffixed paths from old site
             // must also edit src/util.js for client-side redirect
-            if (req.path === '/support.html') {
-                res.redirect('/support/give/');
-            }
-            if (req.path.match(/^\/about\/?$/)) {
+            if (req.path.match(/^\/about(\/|\.html|\/bio\.html)?$/)) {
                 res.redirect('/about/biography/');
             }
-            if (req.path.match(/^\/education\/?$/)) {
+            if (req.path.match(/^\/education(\/|\.html)?$/)) {
                 res.redirect('/about/workshops/');
             }
-            if (req.path.match(/^\/store\/?$/)) {
+            if (req.path.match(/^\/store(\/|\.html)?$/)) {
                 res.redirect('/store/cds/');
             }
-            if (req.path.match(/^\/support\/?$/)) {
+            if (req.path.match(/^\/support(\/|\.html)?$/)) {
                 res.redirect('/support/give/');
+            }
+            if (req.path.match(/^\/calendar(\.html|\/past\.html|\/calendar_print\.html)$/)) {
+                res.redirect('/calendar/');
             }
 
             // index.js : homepage
