@@ -4,6 +4,7 @@ import Error from 'next/error'
 import Bounce from 'react-reveal/Bounce'
 import Layout from '../components/Layout'
 import AudioToggle from '../components/AudioToggle'
+import Featured from '../components/Featured'
 import { API_URL } from '../config'
 
 class Index extends Component {
@@ -36,6 +37,7 @@ class Index extends Component {
       headerMenu,
       pageProps: {
         post,
+        post: { acf },
       },
     } = this.props
 
@@ -45,6 +47,13 @@ class Index extends Component {
 
     return (
       <Layout headerMenu={headerMenu} isDark>
+        {
+          acf && acf.link_text && acf.link_url &&
+            <Featured
+              text={acf.link_text}
+              link={acf.link_url}
+            />
+        }
         <video className="video" autoPlay muted={muted} loop>
           <source src="/static/background.mp4" type="video/mp4" />
           <source src="/static/background.webm" type="video/webm" />

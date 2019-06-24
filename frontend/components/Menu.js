@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import { withRouter } from 'next/router'
 import Link from 'next/link'
-import Bounce from 'react-reveal/Bounce'
 import { createLink } from '../src/util'
 
 class Menu extends Component {
@@ -33,7 +32,6 @@ class Menu extends Component {
                     { link }
                   </li>
                 )
-                if (arr.length === i + 1) return <Bounce key={link.props.as} ssrReveal top>{li}</Bounce>
                 return li
               })
             }
