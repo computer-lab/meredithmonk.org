@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Plugin Name:       API Accelerator

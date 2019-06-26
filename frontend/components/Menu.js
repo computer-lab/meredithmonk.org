@@ -8,7 +8,6 @@ class Menu extends Component {
   isActive(link) {
     const { router } = this.props
     const currentPath = router.asPath
-    console.log(currentPath)
     const linkBase = `/${link.props.as.split('/')[1]}`
     return currentPath.indexOf(linkBase) === 0
   }
@@ -28,7 +27,7 @@ class Menu extends Component {
           <ul className="navbar-nav ml-auto">
             {
               menu.items.map(createLink).map((link, i, arr) =>
-                <li onClick={() => console.log('click')} className={classNames('nav-item', { active: this.isActive(link) })} key={link.props.as}>
+                <li className={classNames('nav-item', { active: this.isActive(link) })} key={link.props.as}>
                   { link }
                 </li>
               )

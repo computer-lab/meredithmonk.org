@@ -42,9 +42,10 @@ h1, h2 {
   @include media-breakpoint-up(md) {
     text-align: right;
   }
+  margin-top: -2rem;
   a {
     color: $gray-100;
-    font-size: 1.7rem;
+    font-size: 1.65rem;
     transition: color 0.2s;
   }
   a:hover {
