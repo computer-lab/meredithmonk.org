@@ -20,11 +20,7 @@ class Index extends Component {
       `${API_URL}/wp-json/postlight/v1/page?slug=welcome`,
     )
     const post = await res.json()
-    const childrenRes = await fetch(
-      `${API_URL}/wp-json/wp/v2/pages?parent=${post.id}`,
-    )
-    const children = await childrenRes.json()
-    return { post, children }
+    return { post }
   }
 
   handleAudioToggle = () => {

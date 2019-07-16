@@ -16,7 +16,11 @@ import MailingListSignup from '../components/MailingListSignup'
 class Page extends Component {
   static async getInitialProps(context) {
     const { slug, apiRoute } = context.query
-
+    let repertoryWorks
+    if (slug === 'repertory') {
+      const repRes = await fetch(`${API_URL}/wp-json/wp/v2/work?_embed&per_page=100`)
+      repertoryWorks = await repRes.json()
+    }
     // get data for this page
     const pageRes = await fetch(
       `${API_URL}/wp-json/postlight/v1/${apiRoute}?slug=${slug}`,
@@ -46,7 +50,7 @@ class Page extends Component {
     const menuItems = await menuItemRes.json()
     const page = thisPage || await pageRes.json()
 
-    return { page, menuItems }
+    return { page, menuItems, repertoryWorks }
   }
 
   isSectionActive(slug) {
@@ -65,11 +69,11 @@ class Page extends Component {
     const {
       router,
       headerMenu,
-      repertoryWorks,
       pageProps: {
         page,
         page: { acf },
         menuItems,
+        repertoryWorks,
       },
     } = this.props
 

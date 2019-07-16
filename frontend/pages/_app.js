@@ -14,44 +14,40 @@ class MyApp extends App {
 
   static async getInitialProps({ Component, ctx }) {
     // get page-specific data from (welcome|page|work)[.js] getInitialProps fn
-    let pageProps = {}
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
-    }
-
-    // get data that only needs to be gotten once (during SSR)
-    if (ctx.req) {
-      const headerMenuRes = await fetch(
-        `${API_URL}/wp-json/menus/v1/menus/header-menu`,
-      )
-      const repertoryWorksRes = await fetch(
-        `${API_URL}/wp-json/wp/v2/work?_embed&per_page=100`,
-      )
-      const headerMenu = await headerMenuRes.json()
-      const repertoryWorks = await repertoryWorksRes.json()
-
+    if (!ctx.req) {
+      const pageProps = await Component.getInitialProps(ctx)
       return {
-        headerMenu,
-        repertoryWorks,
-        pageProps,
+        pageProps
       }
     }
 
+    // get data that only needs to be gotten once (during SSR)
+    const [pageProps, headerMenuRes, repWorksRes] = await Promise.all([
+      Component.getInitialProps(ctx),
+      fetch(`${API_URL}/wp-json/menus/v1/menus/header-menu`),
+      // fetch(`${API_URL}/wp-json/wp/v2/work?_embed&per_page=100`),
+    ])
+    const [headerMenu, repertoryWorks] = await Promise.all([
+      headerMenuRes.json(),
+      // repWorksRes.json()
+    ])
+
     return {
+      headerMenu,
       pageProps,
     }
   }
 
   render() {
     const {
-      Component, pageProps, headerMenu, repertoryWorks,
+      Component, pageProps, headerMenu
     } = this.props
 
     return (
       <Container>
         <div id="wrapper">
           <Component {...{
-            pageProps, headerMenu, repertoryWorks, ...this.state,
+            pageProps, headerMenu, ...this.state,
           }}
           />
         </div>
