@@ -27,7 +27,7 @@ export const createLink = (item, index) => {
         href={`/page?slug=${item.slug}&apiRoute=page`}
         key={item.id}
       >
-        <a>{item.title.rendered}</a>
+        <a onClick={clickMenuItem}>{item.title.rendered}</a>
       </Link>
     )
   }
@@ -57,7 +57,7 @@ export const createLink = (item, index) => {
       href={`/page?slug=${slug}&apiRoute=${item.object}`}
       key={index}
     >
-      <a className="nav-link" onClick={clickMenuItem}>{item.title}</a>
+      <a className="nav-link" onClick={clickMenuItem} >{item.title}</a>
     </Link>
   )
 }

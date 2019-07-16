@@ -79,6 +79,9 @@ When the installation process completes successfully:
 > wp core update --allow-root
 ```
 
+Note: new plugins which affect the rest APIs will need to be added to the
+api-accelerator plugin in mu-plugins.
+
 ### Import Data (Optional)
 
 To import data and media from a live WordPress installation, you can use the Migrate DB Pro plugin, which is already installed. To do so, in the `robo.yml` file, set the plugin license and source install. Run `robo wordpress:setup`, then run `robo wordpress:import` to pull in the data.

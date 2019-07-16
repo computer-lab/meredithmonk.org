@@ -1,8 +1,17 @@
 import React from 'react'
 import Router from 'next/router'
 import withGA from 'next-ga'
+import NProgress from 'nprogress'
 import App, { Container } from 'next/app'
 import { API_URL, GA_CODE } from '../config'
+
+
+Router.events.on('routeChangeStart', url => {
+  console.log(`Loading: ${url}`)
+  NProgress.start()
+})
+Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeError', () => NProgress.done())
 
 class MyApp extends App {
   constructor(props) {
@@ -25,11 +34,9 @@ class MyApp extends App {
     const [pageProps, headerMenuRes, repWorksRes] = await Promise.all([
       Component.getInitialProps(ctx),
       fetch(`${API_URL}/wp-json/menus/v1/menus/header-menu`),
-      // fetch(`${API_URL}/wp-json/wp/v2/work?_embed&per_page=100`),
     ])
     const [headerMenu, repertoryWorks] = await Promise.all([
       headerMenuRes.json(),
-      // repWorksRes.json()
     ])
 
     return {
