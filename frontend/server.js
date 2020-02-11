@@ -33,7 +33,7 @@ app
             if (req.path.match(/^\/support(\/|\.html)?$/)) {
                 res.redirect('/support/give/');
             }
-            if (req.path.match(/^\/calendar(\.html|\/past\.html|\/calendar_print\.html)$/)) {
+            if (req.path.match(/^\/calendar(\.html|\/past\.html|\/calendar_print\.html)?$/)) {
                 res.redirect('/calendar/current/');
             }
 
