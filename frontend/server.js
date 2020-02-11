@@ -34,7 +34,7 @@ app
                 res.redirect('/support/give/');
             }
             if (req.path.match(/^\/calendar(\.html|\/past\.html|\/calendar_print\.html)$/)) {
-                res.redirect('/calendar/');
+                res.redirect('/calendar/current/');
             }
 
             // index.js : homepage

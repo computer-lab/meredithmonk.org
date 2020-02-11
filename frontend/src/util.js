@@ -46,6 +46,9 @@ export const createLink = (item, index) => {
   } else if (slug === 'store') {
     asSlug = 'store/cds'
     slug = 'cds'
+  } else if (slug === 'calendar') {
+    asSlug = 'calendar/current'
+    slug = 'current'
   } else {
     asSlug = slug
   }
