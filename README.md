@@ -4,7 +4,58 @@ meredithmonk.org is build using Postlight's Wordpress starter.
 
 ## Dev Setup
 
-See wp-postlight instructions below.
+### WordPress Backend
+
+Before you install WordPress, make sure you have [Docker](https://www.docker.com) installed. On Linux, you might need to install [docker-compose](https://docs.docker.com/compose/install/#install-compose) separately.
+
+### Install
+
+The following commands will get WordPress running on your machine using Docker, along with the WordPress plugins you'll need to create and serve custom data via the WP REST API.
+
+```zsh
+> docker-compose up -d
+```
+- Attach to the `wp-headless` container.
+```zsh
+> docker exec -it wp-headless /bin/bash
+```
+- Setup headless wordpress by running yarn
+```zsh
+> yarn install
+```
+When the installation process completes successfully:
+
+*   The WordPress REST API is available at [http://localhost:8080](http://localhost:8080)
+*   The WordPress GraphQL API is available at [http://localhost:8080/graphql](http://localhost:8080/graphql)
+*   The WordPress admin is at [http://localhost:8080/wp-admin/](http://localhost:8080/wp-admin/) default login credentials `nedstark` / `winteriscoming`
+
+### Run React Frontend
+
+To spin up the frontend client app, run the following commands:
+
+```zsh
+> docker exec -it wp-headless /bin/bash
+> cd frontend && yarn install && yarn start
+```
+
+The Next.js app will be running on [http://localhost:3000](http://localhost:3000).
+
+### Import Data (Optional)
+
+To import data and media from a live WordPress installation, you can use the Migrate DB Pro plugin, which is already installed. To do so, in the `robo.yml` file, set the plugin license and source install. Run `robo wordpress:setup`, then run `robo wordpress:import` to pull in the data.
+
+### Update Plugins / Core (Optional)
+
+- Attach to the `wp-headless` container and use the WP CLI:
+
+```
+> docker exec -it wp-headless /bin/bash
+> wp plugin update --allow-root
+> wp core update --allow-root
+```
+
+Note: new plugins which affect the rest APIs will need to be added to the
+api-accelerator plugin in mu-plugins.
 
 ## Deploy
 
@@ -41,50 +92,8 @@ You can read all about it in [this handy introduction](https://trackchanges.post
 *   A starter frontend React app powered by [Next.js](https://learnnextjs.com/).
 *   A [Docker](https://www.docker.com/) container and scripts to manage it, for easily running the frontend React app and backend locally or deploying it to any hosting provider with Docker support.
 
-Let's get started.
-
-## WordPress Backend
-
-Before you install WordPress, make sure you have [Docker](https://www.docker.com) installed. On Linux, you might need to install [docker-compose](https://docs.docker.com/compose/install/#install-compose) separately.
-
-### Install
-
-The following commands will get WordPress running on your machine using Docker, along with the WordPress plugins you'll need to create and serve custom data via the WP REST API.
-
-```zsh
-> docker-compose up -d
-```
-- Attach to the `wp-headless` container.
-```zsh
-> docker exec -it wp-headless /bin/bash
-```
-- Setup headless wordpress by running yarn
-```zsh
-> yarn install
-```
-When the installation process completes successfully:
-
-*   The WordPress REST API is available at [http://localhost:8080](http://localhost:8080)
-*   The WordPress GraphQL API is available at [http://localhost:8080/graphql](http://localhost:8080/graphql)
-*   The WordPress admin is at [http://localhost:8080/wp-admin/](http://localhost:8080/wp-admin/) default login credentials `nedstark` / `winteriscoming`
 
 
-### Update Plugins / Core
-
-- Attach to the `wp-headless` container and use the WP CLI:
-
-```
-> docker exec -it wp-headless /bin/bash
-> wp plugin update --allow-root
-> wp core update --allow-root
-```
-
-Note: new plugins which affect the rest APIs will need to be added to the
-api-accelerator plugin in mu-plugins.
-
-### Import Data (Optional)
-
-To import data and media from a live WordPress installation, you can use the Migrate DB Pro plugin, which is already installed. To do so, in the `robo.yml` file, set the plugin license and source install. Run `robo wordpress:setup`, then run `robo wordpress:import` to pull in the data.
 
 ### Extend the REST and GraphQL APIs
 
@@ -92,16 +101,6 @@ At this point you can start setting up custom fields in the WordPress admin, and
 
 The primary theme code is located in `wordpress/wp-content/themes/postlight-headless-wp`. Remember to [lint your code](README-linting.md) as you go.
 
-## React Frontend
-
-To spin up the frontend client app, run the following commands:
-
-```zsh
-> docker exec -it wp-headless /bin/bash
-> cd frontend && yarn install && yarn start
-```
-
-The Next.js app will be running on [http://localhost:3000](http://localhost:3000).
 
 ### Docker
 
