@@ -226,7 +226,12 @@ h1, h2 {
   * > :first-child { margin-top: 0 }
   a {
     text-decoration: underline;
+    color: darken($blue, 27.5%);
+    &:hover {
+      color: darken($blue, 20%);
+    }
   }
+
   img {
     max-width: 100%;
     height: auto;
@@ -442,6 +447,7 @@ $grid_gutter_size: 0.75rem;
         text-transform: uppercase;
         a {
           text-decoration: none !important;
+          color: $dark !important;
         }
       }
     }
