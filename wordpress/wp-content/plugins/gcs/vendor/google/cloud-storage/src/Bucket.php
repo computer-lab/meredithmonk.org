@@ -779,7 +779,7 @@ class Bucket
      *           configuration.
      *     @type array $defaultObjectAcl Default access controls to apply to new
      *           objects when no ACL is provided.
-     *     @type array $lifecycle The bucket's lifecycle configuration.
+     *     @type array|Lifecycle $lifecycle The bucket's lifecycle configuration.
      *     @type array $logging The bucket's logging configuration, which
      *           defines the destination bucket and optional name prefix for the
      *           current bucket's logs.
@@ -805,11 +805,24 @@ class Bucket
      *           `projects/my-project/locations/kr-location/keyRings/my-kr/cryptoKeys/my-key`.
      *           Please note the KMS key ring must use the same location as the
      *           bucket.
+     *     @type bool $defaultEventBasedHold When `true`, newly created objects
+     *           in this bucket will be retained indefinitely until an event
+     *           occurs, signified by the hold's release.
+     *     @type array $retentionPolicy Defines the retention policy for a
+     *           bucket. In order to lock a retention policy, please see
+     *           {@see Google\Cloud\Storage\Bucket::lockRetentionPolicy()}.
+     *     @type int $retentionPolicy.retentionPeriod Specifies the duration
+     *           that objects need to be retained, in seconds. Retention
+     *           duration must be greater than zero and less than 100 years.
      * }
      * @return array
      */
     public function update(array $options = [])
     {
+        if (isset($options['lifecycle']) && $options['lifecycle'] instanceof Lifecycle) {
+            $options['lifecycle'] = $options['lifecycle']->toArray();
+        }
+
         return $this->info = $this->connection->patchBucket($options + $this->identity);
     }
 
@@ -989,6 +1002,89 @@ class Bucket
     }
 
     /**
+     * Retrieves a fresh lifecycle builder. If a lifecyle configuration already
+     * exists on the target bucket and this builder is used, it will fully
+     * replace the configuration with the rules provided by this builder.
+     *
+     * This builder is intended to be used in tandem with
+     * {@see Google\Cloud\Storage\StorageClient::createBucket()} and
+     * {@see Google\Cloud\Storage\Bucket::update()}.
+     *
+     * Example:
+     * ```
+     * use Google\Cloud\Storage\Bucket;
+     *
+     * $lifecycle = Bucket::lifecycle()
+     *     ->addDeleteRule([
+     *         'age' => 50,
+     *         'isLive' => true
+     *     ]);
+     * $bucket->update([
+     *     'lifecycle' => $lifecycle
+     * ]);
+     * ```
+     *
+     * @see https://cloud.google.com/storage/docs/lifecycle Object Lifecycle Management API Documentation
+     *
+     * @param array $lifecycle [optional] A lifecycle configuration. Please see
+     *        [here](https://cloud.google.com/storage/docs/json_api/v1/buckets#lifecycle)
+     *        for the expected structure.
+     * @return Lifecycle
+     */
+    public static function lifecycle(array $lifecycle = [])
+    {
+        return new Lifecycle($lifecycle);
+    }
+
+    /**
+     * Retrieves a lifecycle builder preconfigured with the lifecycle rules that
+     * already exists on the bucket. Use this if you want to make updates to an
+     * existing configuration without removing existing rules, as would be the
+     * case when using {@see Google\Cloud\Storage\Bucket::lifecycle()}.
+     *
+     * This builder is intended to be used in tandem with
+     * {@see Google\Cloud\Storage\StorageClient::createBucket()} and
+     * {@see Google\Cloud\Storage\Bucket::update()}.
+     *
+     * Please note, this method may trigger a network request in order to fetch
+     * the existing lifecycle rules from the server.
+     *
+     * Example:
+     * ```
+     * $lifecycle = $bucket->currentLifecycle()
+     *     ->addDeleteRule([
+     *         'age' => 50,
+     *         'isLive' => true
+     *     ]);
+     * $bucket->update([
+     *     'lifecycle' => $lifecycle
+     * ]);
+     * ```
+     *
+     * ```
+     * // Iterate over existing rules.
+     * $lifecycle = $bucket->currentLifecycle();
+     *
+     * foreach ($lifecycle as $rule) {
+     *     print_r($rule);
+     * }
+     * ```
+     *
+     * @see https://cloud.google.com/storage/docs/lifecycle Object Lifecycle Management API Documentation
+     *
+     * @param array $options [optional] Configuration options.
+     * @return Lifecycle
+     */
+    public function currentLifecycle(array $options = [])
+    {
+        return self::lifecycle(
+            isset($this->info($options)['lifecycle'])
+                ? $this->info['lifecycle']
+                : []
+        );
+    }
+
+    /**
      * Returns whether the bucket with the given file prefix is writable.
      * Tries to create a temporary file as a resumable upload which will
      * not be completed (and cleaned up by GCS).
@@ -1051,6 +1147,69 @@ class Bucket
         }
 
         return $this->iam;
+    }
+
+    /**
+     * Locks a provided retention policy on this bucket. Upon receiving a result,
+     * the local bucket's data will be updated.
+     *
+     * Please note that in order for this call to succeed, the applicable
+     * metageneration value will need to be available. It can either be supplied
+     * explicitly through the `ifMetagenerationMatch` option or detected for you
+     * by ensuring a value is cached locally (by calling
+     * {@see Google\Cloud\Storage\Bucket::reload()} or
+     * {@see Google\Cloud\Storage\Bucket::info()}, for example).
+     *
+     * Example:
+     * ```
+     * // Set a retention policy.
+     * $bucket->update([
+     *     'retentionPolicy' => [
+     *         'retentionPeriod' => 604800 // One week in seconds.
+     *     ]
+     * ]);
+     * // Lock in the policy.
+     * $info = $bucket->lockRetentionPolicy();
+     * $retentionPolicy = $info['retentionPolicy'];
+     *
+     * // View the time from which the policy was enforced and effective. (RFC 3339 format)
+     * echo $retentionPolicy['effectiveTime'] . PHP_EOL;
+     *
+     * // View whether or not the retention policy is locked. This will be
+     * // `true` after a successful call to `lockRetentionPolicy`.
+     * echo $retentionPolicy['isLocked'];
+     * ```
+     *
+     * @see https://cloud.google.com/storage/docs/bucket-lock Bucket Lock Documentation
+     *
+     * @param array $options [optional] {
+     *     Configuration options.
+     *
+     *     @type string $ifMetagenerationMatch Only locks the retention policy
+     *           if the bucket's metageneration matches this value. If not
+     *           provided the locally cached metageneration value will be used,
+     *           otherwise an exception will be thrown.
+     * }
+     * @throws \BadMethodCallException If no metageneration value is available.
+     * @return array
+     */
+    public function lockRetentionPolicy(array $options = [])
+    {
+        if (!isset($options['ifMetagenerationMatch'])) {
+            if (!isset($this->info['metageneration'])) {
+                throw new \BadMethodCallException(
+                    'No metageneration value was detected. Please either provide ' .
+                    'a value explicitly or ensure metadata is loaded through a ' .
+                    'call such as Bucket::reload().'
+                );
+            }
+
+            $options['ifMetagenerationMatch'] = $this->info['metageneration'];
+        }
+
+        return $this->info = $this->connection->lockRetentionPolicy(
+            $options + $this->identity
+        );
     }
 
     /**

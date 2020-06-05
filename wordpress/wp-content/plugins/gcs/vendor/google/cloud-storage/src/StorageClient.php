@@ -47,7 +47,7 @@ class StorageClient
     use ArrayTrait;
     use ClientTrait;
 
-    const VERSION = '1.7.1';
+    const VERSION = '1.9.4';
 
     const FULL_CONTROL_SCOPE = 'https://www.googleapis.com/auth/devstorage.full_control';
     const READ_ONLY_SCOPE = 'https://www.googleapis.com/auth/devstorage.read_only';
@@ -258,7 +258,7 @@ class StorageClient
      *           configuration.
      *     @type array $defaultObjectAcl Default access controls to apply to new
      *           objects when no ACL is provided.
-     *     @type array $lifecycle The bucket's lifecycle configuration.
+     *     @type array|Lifecycle $lifecycle The bucket's lifecycle configuration.
      *     @type string $location The location of the bucket. **Defaults to**
      *           `"US"`.
      *     @type array $logging The bucket's logging configuration, which
@@ -294,6 +294,16 @@ class StorageClient
      *           `projects/my-project/locations/kr-location/keyRings/my-kr/cryptoKeys/my-key`.
      *           Please note the KMS key ring must use the same location as the
      *           bucket.
+     *     @type bool $defaultEventBasedHold When `true`, newly created objects
+     *           in this bucket will be retained indefinitely until an event
+     *           occurs, signified by the hold's release.
+     *     @type array $retentionPolicy Defines the retention policy for a
+     *           bucket. In order to lock a retention policy, please see
+     *           {@see Google\Cloud\Storage\Bucket::lockRetentionPolicy()}.
+     *     @type int $retentionPolicy.retentionPeriod Specifies the retention
+     *           period for objects in seconds. During the retention period an
+     *           object cannot be overwritten or deleted. Retention period must
+     *           be greater than zero and less than 100 years.
      * }
      * @return Bucket
      * @throws GoogleException When a project ID has not been detected.
@@ -305,6 +315,9 @@ class StorageClient
                 'No project ID was provided, ' .
                 'and we were unable to detect a default project ID.'
             );
+        }
+        if (isset($options['lifecycle']) && $options['lifecycle'] instanceof Lifecycle) {
+            $options['lifecycle'] = $options['lifecycle']->toArray();
         }
 
         $bucketUserProject = $this->pluck('bucketUserProject', $options, false);

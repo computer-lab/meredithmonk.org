@@ -3,10 +3,10 @@
 * Plugin Name: Simple Custom Post Order
 * Plugin URI: https://wordpress.org/plugins-wp/simple-custom-post-order/
 * Description: Order Items (Posts, Pages, and Custom Post Types) using a Drag and Drop Sortable JavaScript.
-* Version: 2.4.4
+* Version: 2.5.0
 * Author: Colorlib
 * Author URI: https://colorlib.com/
-* Tested up to: 5.1
+* Tested up to: 5.4
 * Requires: 4.6 or higher
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,7 +36,7 @@
 
 define('SCPORDER_URL', plugins_url('', __FILE__));
 define('SCPORDER_DIR', plugin_dir_path(__FILE__));
-define('SCPORDER_VERSION', '2.4.4');
+define('SCPORDER_VERSION', '2.5.0');
 
 $scporder = new SCPO_Engine();
 
@@ -46,9 +46,11 @@ class SCPO_Engine {
         if (!get_option('scporder_install'))
             $this->scporder_install();
 
+        $this->load_dependencies();
+
         add_action('admin_menu', array($this, 'admin_menu'));
 
-        add_action('admin_init', array($this, 'refresh'));
+        add_action('admin_init', array( $this, 'refresh' ) );
 
         add_action('admin_init', array($this, 'update_options'));
         add_action('admin_init', array($this, 'load_script_css'));
@@ -71,6 +73,23 @@ class SCPO_Engine {
         add_action( 'wp_ajax_scporder_dismiss_notices', array( $this, 'dismiss_notices' ) );
 
         add_action( 'plugins_loaded', array( $this, 'load_scpo_textdomain' ) );
+
+        add_filter('scpo_post_types_args',array($this,'scpo_filter_post_types'),10,2);
+
+        add_action('wp_ajax_scpo_reset_order', array($this, 'scpo_ajax_reset_order'));
+    }
+
+    private function load_dependencies() {
+        include SCPORDER_DIR . 'class-simple-review.php';
+    }
+
+    public function scpo_filter_post_types($args,$options){
+
+        if(isset($options['show_advanced_view']) && '1' == $options['show_advanced_view'] ){
+            unset($args['show_in_menu']);
+        }
+
+        return $args;
     }
 
     public function load_scpo_textdomain(){
@@ -214,11 +233,17 @@ class SCPO_Engine {
     }
 
     public function refresh() {
+
+        if ( scporder_doing_ajax() ) {
+            return;
+        }
+
         global $wpdb;
         $objects = $this->get_scporder_options_objects();
         $tags = $this->get_scporder_options_tags();
 
         if (!empty($objects)) {
+            
             foreach ($objects as $object) {
                 $result = $wpdb->get_results("
                     SELECT count(*) as cnt, max(menu_order) as max, min(menu_order) as min
@@ -298,6 +323,8 @@ class SCPO_Engine {
                 $wpdb->update($wpdb->posts, array('menu_order' => $menu_order_arr[$position]), array('ID' => intval($id)));
             }
         }
+
+        do_action('scp_update_menu_order');
     }
 
     public function update_menu_order_tags() {
@@ -329,6 +356,8 @@ class SCPO_Engine {
                 $wpdb->update($wpdb->terms, array('term_order' => $menu_order_arr[$position]), array('term_id' => intval($id)));
             }
         }
+
+        do_action('scp_update_menu_order_tags');
     }
 
     public function update_options() {
@@ -342,6 +371,7 @@ class SCPO_Engine {
         $input_options = array();
         $input_options['objects'] = isset($_POST['objects']) ? $_POST['objects'] : '';
         $input_options['tags'] = isset($_POST['tags']) ? $_POST['tags'] : '';
+        $input_options['show_advanced_view'] = isset($_POST['show_advanced_view']) ? $_POST['show_advanced_view'] : '';
 
         update_option('scporder_options', $input_options);
 
@@ -460,6 +490,7 @@ class SCPO_Engine {
 
     public function scporder_pre_get_posts($wp_query) {
         $objects = $this->get_scporder_options_objects();
+
         if (empty($objects))
             return false;
         if (is_admin()) {
@@ -500,6 +531,7 @@ class SCPO_Engine {
                 if (!$wp_query->get('order'))
                     $wp_query->set('order', 'ASC');
             }
+
         }
     }
 
@@ -512,7 +544,17 @@ class SCPO_Engine {
         if (!isset($args['taxonomy']))
             return $orderby;
 
-        $taxonomy = $args['taxonomy'];
+        if(is_array($args['taxonomy'])){
+            if(isset($args['taxonomy'][0])){
+                $taxonomy = $args['taxonomy'][0];
+            } else {
+                $taxonomy = false;
+            }
+
+        } else {
+            $taxonomy = $args['taxonomy'];
+        }
+
         if (!in_array($taxonomy, $tags))
             return $orderby;
 
@@ -558,6 +600,56 @@ class SCPO_Engine {
         return $tags;
     }
 
+    /**
+     *  SCPO reset order for post types/taxonomies
+     */
+    public function scpo_ajax_reset_order() {
+
+        global $wpdb;
+        if ('scpo_reset_order' == $_POST['action']) {
+            check_ajax_referer('scpo-reset-order', 'scpo_security');
+            $items = $_POST['items'];
+
+            $count   = 0;
+            $in_list = "(";
+            foreach ($items as $item) {
+
+                if ($count != 0) {
+                    $in_list .= ',';
+                }
+                $in_list .= '\'' . $item . '\'';
+                $count++;
+            }
+            $in_list .= ")";
+
+            $prep_posts_query = "UPDATE $wpdb->posts SET `menu_order` = 0 WHERE `post_type` IN $in_list";
+
+            $result = $wpdb->query($prep_posts_query);
+
+            if ($result) {
+                echo 'Items have been reset';
+            } else {
+                echo false;
+            }
+
+            wp_die();
+        }
+    }
+
+}
+
+function scporder_doing_ajax(){
+
+    if ( function_exists( 'wp_doing_ajax' ) ) {
+        return wp_doing_ajax();
+    }
+
+    if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+        return true;
+    }
+
+    return false;
+
 }
 
 /**
@@ -589,5 +681,3 @@ function scporder_uninstall_db() {
     }
     delete_option('scporder_install');
 }
-
-require_once 'class-colorlib-dashboard-widget-extend-feed.php';

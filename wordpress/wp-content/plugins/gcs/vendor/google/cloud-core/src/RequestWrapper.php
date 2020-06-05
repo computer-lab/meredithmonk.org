@@ -163,7 +163,7 @@ class RequestWrapper
         }
 
         try {
-            return $backoff->execute($this->httpHandler, [$this->applyHeaders($request), $restOptions]);
+         return $backoff->execute($this->httpHandler, [$this->applyHeaders($request), $restOptions]);
         } catch (\Exception $ex) {
             throw $this->convertToGoogleException($ex);
         }
