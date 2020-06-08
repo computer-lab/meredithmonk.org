@@ -30,7 +30,11 @@ const RepertoryWorks = ({ repertoryWorks }) => (
                 as={`/repertory/${work.slug}/`}
                 href={work.link}
               >
-                <a>{work.title.rendered}</a>
+                <a
+                  dangerouslySetInnerHTML={{
+                    __html: work.title.rendered,
+                  }}
+                />
               </Link>
             </div>
           </div>
